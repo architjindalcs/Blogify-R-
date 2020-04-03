@@ -1,14 +1,33 @@
-body
-{
-    background-color: blue;
-}
-h1
-{
-    color:rebeccapurple;
-}
+
 .topnav
 {
-    height: 300px;
-    width: 300px;
-    background-color: red;
+    height: 50px;
+    width: 100% ;
+    background-color: whitesmoke;
+    position: fixed;
+}
+.logo
+{
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    margin-left: 35px;
+}
+.search
+{
+    margin-top: 4px;
+}
+.topnav img
+{
+    height: 40px;
+    width: 40px;
+    margin-left: 4px;
+}
+.topnav p
+{
+    margin-left: 0;
+}
+.topnav a
+{
+    color: black;
 }

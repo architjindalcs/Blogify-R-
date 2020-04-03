@@ -127,6 +127,11 @@ app.get("/loginfailed",function(req,res)
 {
     res.render("homepagefail");
 })
+app.get("/logout",function(req,res)
+{
+    req.logout();
+    res.redirect("/");
+})
 app.listen(3000,function(){
     console.log("Server has started!!")
 })
