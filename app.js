@@ -141,6 +141,10 @@ app.post("/search",isLoggedin,function(req,res)
        var results=[];
        for(var i=0;i<users.length;i++)
         {
+            if(users[i].username===req.user.username)
+            {
+                continue;
+            }
             var len=query.length;
             var poss=false;
             var currUsername=users[i].username;
@@ -175,9 +179,88 @@ app.post("/search",isLoggedin,function(req,res)
             }
 
         }
-        // console.log("Results",results);
-        res.render("searchresults",{results: results});
+        console.log(results);
+        res.render("searchresults",{results: results,loggedUser: req.user.username});
     })
+})
+//Follow Req related routes........................
+app.get("/send/:userid",isLoggedin,function(req,res)
+{
+    var searchFor=req.params.userid;
+    User.findOne({username: searchFor},function(err,user){
+        var prev=user.rec_req;
+        prev.push(req.user.username);
+        User.findOneAndUpdate({username: searchFor},{$set:{rec_req: prev}},function(err,user){});
+    })
+    User.findOne({username: req.user.username},function(err,user){
+        var prev=user.sent_req;
+        prev.push(req.params.userid);
+        User.findOneAndUpdate({username: req.user.username},{$set: {sent_req: prev}},function(err,user){});
+        res.send("Sent!!");  //Redirect to a success page....
+    })
+})
+app.get("/cancel/:userid",isLoggedin,function(req,res)
+{
+    User.findOne({username: req.params.userid},function(err,user)
+    {
+        var prev=user.rec_req;
+        var newR=[];
+        for(var i=0;i!=prev.length;i++)
+        {
+            if(prev[i]!=req.user.username)
+            {
+                newR.push(prev[i]);
+            }
+        }
+        User.findOneAndUpdate({username: req.params.userid},{$set: {rec_req: newR}},function(err,user){});
+    })
+    User.findOne({username: req.user.username},function(err,user)
+    {
+        var prev=user.sent_req;
+        var newR=[];
+        for(var i=0;i!=prev.length;i++)
+        {
+            if(prev[i]!=req.params.userid)
+            {
+                newR.push(prev[i]);
+            }
+        }
+        User.findOneAndUpdate({username: req.user.username},{$set: {sent_req: newR}},function(err,user){});
+        res.send("Cancelled");   //Rediredict to a cancellation page...
+    })
+})
+app.get("/delete/:userid",isLoggedin,function(req,res)
+{
+    User.findOne({username: req.user.username},function(err,user){
+        var prev=user.rec_req;
+        var newR=[];
+        for(var i=0;i<prev.length;i++)
+        {
+            if(prev[i]!=req.params.userid)
+            {
+                newR.push(prev[i]);
+            }
+        }
+        User.findOneAndUpdate({username: req.user.username},{$set:{rec_req: newR}},function(err,user){})
+    })
+    User.findOne({username: req.params.userid},function(err,user)
+    {
+        var prev=user.sent_req;
+        var newR=[];
+        for(var i=0;i<prev.length;i++)
+        {
+            if(prev[i]!=req.user.username)
+            {
+                newR.push(prev[i]);
+            }
+        }
+        User.findOneAndUpdate({username: req.params.userid},function(err,user){});
+        res.send("Request is deleted..."); //Rediredict to a cancellation page...
+    })
+})
+app.get("/accept/:userid",function(req,res)
+{
+    
 })
 app.listen(3000,function(){
     console.log("Server has started!!")
