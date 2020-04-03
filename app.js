@@ -134,7 +134,50 @@ app.get("/logout",function(req,res)
 })
 app.post("/search",isLoggedin,function(req,res)
 {
-    console.log(req.body);
+    const query=req.body.query.toLowerCase();
+    // query=query.toLowerCase();
+    User.find({},function(err,users)
+    {
+       var results=[];
+       for(var i=0;i<users.length;i++)
+        {
+            var len=query.length;
+            var poss=false;
+            var currUsername=users[i].username;
+            var currName=users[i].name;
+            currUsername=currUsername.toLowerCase();
+            currName=currName.toLowerCase();
+            for(var k=0;k<=currName.length;k++)
+            {
+                if(currName.slice(k,k+len)==query)
+                {
+                    poss=true;
+                    break;
+                }
+            }
+            if(poss==true)
+            {
+                results.push(users[i]);
+                continue;
+            }
+            for(var k=0;k<=currUsername.length;k++)
+            {
+                if(currUsername.slice(k,k+len)==query)
+                {
+                    poss=true;
+                    break;
+                }
+            }
+            if(poss==true)
+            {
+                results.push(users[i]);
+                continue;
+            }
+
+        }
+        // console.log("Results",results);
+        res.render("searchresults",{results: results});
+    })
 })
 app.listen(3000,function(){
     console.log("Server has started!!")
