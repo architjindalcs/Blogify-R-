@@ -1,0 +1,83 @@
+.container
+{
+    margin-top: 50px;
+}
+body
+{
+    background-color: #fafafa;
+}
+#temp
+{
+    height: 500px;
+}
+.login
+{
+    height: 480px;
+    width: 380px;
+    color: aliceblue;
+    
+    border: 2px solid lightgray;
+    margin: auto;
+    margin-top: 30px;
+}
+.login1
+{
+    height: 520px;
+    width: 380px;
+    color: aliceblue;
+    
+    border: 2px solid lightgray;
+    margin: auto;
+    margin-top: 30px;
+}
+.abc
+{
+    margin-top: 10px;
+    text-align: center;
+}
+form
+{
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+}
+.cols1
+{
+    margin-top: 40px;
+}
+.cols2
+{
+    margin-top: 10px;
+}
+.logbutt
+{
+    width: 100%;
+    margin-top: 10px;
+    margin-top: 20px;
+}
+.logo
+{
+    display: block;
+    margin: auto;
+}
+.logo
+{
+    margin-top: 50px;
+    height: 60px;
+    width: 200px;
+}
+
+.line
+{
+    height: 1px;
+    border: 1px solid  lightgray;
+    width: 85%;
+    margin: auto;
+    margin-top: 35px;
+}
+.siup
+{
+    color: black;
+    text-align: center;
+    margin-top: 20px;
+}
