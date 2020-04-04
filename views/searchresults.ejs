@@ -17,7 +17,7 @@
         <span class="logo">💬 Blogify</span>
        </div>
        <div class="col-lg-3 search">
-        <form method="POST" action="/search">
+        <form method="GET" action="/search">
           <input type="text"  class="form-control" placeholder="Search something...🔍" name="query" required>
         </form>
     
@@ -35,7 +35,7 @@
        <a href="">Manage ⚙💻</a>
       </div>
       <div class="col-lg-1">
-        <a href="/logout">Logout....📲🚀</a>
+        <a href="/logout"><%= loggedUser %><br>📲</a>
       </div>
    
      </div>
@@ -45,8 +45,11 @@
     <br>
     <br>
     <br>
-
+    <% if(results.length===0) { %>
+      <img src="https://cdn.dribbble.com/users/283708/screenshots/7084440/media/6cd8b29540bcfb6a7693c27f58db7b56.png" alt="" class="nothing">
+    <% } %>
     <div class="container">
+    
         <% for(var i=0;i!=results.length;i++) { %>
             <% var rec_req=results[i].rec_req,alreadySent=false,following=false %>
             <% for(var j=0;j!=results[i].followers.length;j++) { %>
@@ -78,7 +81,7 @@
                       <h1 class="display-4">✔Following: <%=results[i].following.length%> </h1>
                     </div>
                     <div class="col-12 line1">
-
+                    
                     </div>
                     <div class="col-12 option">
                       <% if(alreadySent===true) { %>
@@ -88,7 +91,7 @@
                           <a href="/unfollow/<%= results[i].username %>" > <button class="btn btn-danger">Unfollow😐</button></a>
                           <% } %>
                           <% if(alreadySent===false && following===false) { %>
-                            <a href="/send/<%= results[i].username %>" > <button class="btn btn-primary">Send Request🚀</button></a>
+                            <a href="/send/<%= results[i].username %> " > <button class="btn btn-primary">Send Request🚀</button></a>
                             <% } %>
                     </div>
                    </div>

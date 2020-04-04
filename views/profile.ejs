@@ -17,7 +17,7 @@
         <span class="logo">💬 Blogify</span>
        </div>
        <div class="col-lg-3 search">
-        <form method="POST" action="/search">
+        <form method="GET" action="/search">
           <input type="text"  class="form-control" placeholder="Search something...🔍" name="query" required>
         </form>
     
@@ -35,7 +35,7 @@
        <a href="">Manage ⚙💻 </a>
       </div>
       <div class="col-lg-1">
-        <a href="/logout">Logout....📲🚀</a>
+        <a href="/logout"><%= loggedUser %><br>📲</a>
       </div>
    
      </div>

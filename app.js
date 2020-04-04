@@ -120,7 +120,7 @@ app.get("/profile",isLoggedin,function(req,res)  //To be updated..profile homepa
     const loggedUser=req.user.username;
     User.findOne({username: loggedUser},function(err,user)
     {   
-        res.render("profile");
+        res.render("profile",{loggedUser: req.user.username});
     })
 })
 app.get("/loginfailed",function(req,res)
@@ -132,9 +132,9 @@ app.get("/logout",function(req,res)
     req.logout();
     res.redirect("/");
 })
-app.post("/search",isLoggedin,function(req,res)
+app.get("/search",isLoggedin,function(req,res)
 {
-    const query=req.body.query.toLowerCase();
+    const query=req.query.query.toLowerCase();
     // query=query.toLowerCase();
     User.find({},function(err,users)
     {
@@ -180,7 +180,7 @@ app.post("/search",isLoggedin,function(req,res)
 
         }
         console.log(results);
-        res.render("searchresults",{results: results,loggedUser: req.user.username});
+        res.render("searchresults",{results: results,loggedUser: req.user.username,q: query});
     })
 })
 //Follow Req related routes........................
@@ -196,7 +196,7 @@ app.get("/send/:userid",isLoggedin,function(req,res)
         var prev=user.sent_req;
         prev.push(req.params.userid);
         User.findOneAndUpdate({username: req.user.username},{$set: {sent_req: prev}},function(err,user){});
-        res.send("Sent!!");  //Redirect to a success page....
+        res.redirect("back");
     })
 })
 app.get("/cancel/:userid",isLoggedin,function(req,res)
@@ -226,7 +226,7 @@ app.get("/cancel/:userid",isLoggedin,function(req,res)
             }
         }
         User.findOneAndUpdate({username: req.user.username},{$set: {sent_req: newR}},function(err,user){});
-        res.send("Cancelled");   //Rediredict to a cancellation page...
+        res.redirect("back");   //Rediredict to a cancellation page...
     })
 })
 app.get("/delete/:userid",isLoggedin,function(req,res)
