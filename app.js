@@ -353,6 +353,113 @@ app.get("/sentrequests",isLoggedin,function(req,res)
       
     })
 })
+app.get("/manage",isLoggedin,function(req,res)
+{
+    User.findOne({username: req.user.username},function(err,user)
+    {
+        var results=[];
+        var followers=user.followers;
+        User.find({},function(err,users)
+        {
+            for(var i=0;i<users.length;i++)
+            {
+                for(var j=0;j<followers.length;j++)
+                {
+                    if(followers[j]==users[i].username)
+                    {
+                        results.push(users[i]);
+                        break;
+                    }
+                }
+            }
+            // console.log("Results,",results);
+            res.render("manage",{results: results,loggedUser: req.user.username});
+        })
+    })
+    // res.render("manage.ejs",{loggedUser: req.user.username});
+})
+app.get("/following",isLoggedin,function(req,res)
+{
+    User.findOne({username: req.user.username},function(err,user)
+    {
+        var results=[];
+        var following=user.following;
+        User.find({},function(err,users)
+        {
+            for(var i=0;i<users.length;i++)
+            {
+                for(var j=0;j<following.length;j++)
+                {
+                    if(following[j]==users[i].username)
+                    {
+                        results.push(users[i]);
+                        break;
+                    }
+                }
+            }
+            // console.log("Results,",results);
+            res.render("following",{results: results,loggedUser: req.user.username});
+        })
+    })
+})
+app.get("/unfollow/:userid",function(req,res)
+{
+    User.findOne({username: req.user.username},function(err,user){
+        var prev=user.following;
+        var newR=[];
+        for(var i=0;i<prev.length;i++)
+        {
+            if(prev[i]!=req.params.userid)
+            {
+                newR.push(prev[i]);
+            }
+        }
+        User.findOneAndUpdate({username: req.user.username},{$set:{following: newR}},function(err,user){});
+    })
+    User.findOne({username: req.params.userid},function(err,user){
+        var prev=user.followers;
+        var newR=[];
+        for(var i=0;i<prev.length;i++)
+        {
+            if(prev[i]!=req.user.username)
+            {
+                newR.push(prev[i]);
+            }
+        }
+        User.findOneAndUpdate({username: req.params.userid},{$set:{followers: newR}},function(err,user){});
+        res.redirect("back");
+    })
+})
+app.get("/remove/:userid",function(req,res)
+{
+    User.findOne({username: req.user.username},function(err,user)
+    {
+        var followers=user.followers;
+        var newR=[];
+        for(var i=0;i<followers.length;i++)
+        {
+            if(followers[i]!=req.params.userid)
+            {
+                newR.push(followers[i]);
+            }
+        }
+        User.findOneAndUpdate({username: req.user.username},{$set: { followers: newR}},function(err,res){});
+    })
+    User.findOne({username: req.params.userid},function(err,user)
+    {
+        var following=user.following;
+        var newR=[];
+        for(var i=0;i<following.length;i++)
+        {
+            if(following[i]!=req.user.username)
+            {
+                newR.push(following[i]);
+            }
+        }
+        User.findOneAndUpdate({username: req.params.userid},{$set:{following: newR}},function(err,user){});
+        res.redirect("back");
+    })
+})
 app.listen(3000,function(){
     console.log("Server has started!!")
 })

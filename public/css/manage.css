@@ -1,0 +1,70 @@
+.topnav
+{
+    height: 50px;
+    width: 100% ;
+    background-color: whitesmoke;
+    /* position: fixed; */
+}
+
+.logo
+{
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    margin-left: 35px;
+}
+.topnav img
+{
+    height: 40px;
+    width: 40px;
+    margin-left: 4px;
+}
+.topnav p
+{
+    margin-left: 0;
+}
+.topnav a
+{
+    color: black;
+}
+.user
+{
+    height: 450px;
+    width: 300px;
+    background-color: whitesmoke;
+}
+.profileimg
+{
+    height: 300px;
+    width: 300px;
+}
+.aa1,.aa2
+{
+    margin-top: 70px;
+}
+.use,.name
+{
+    margin-top: 5px;
+    text-align: center;
+  
+    /* font-family: 'Nunito', sans-serif; */
+}
+.btn
+{
+    margin-left: 90px;
+    margin-top: 10px;
+}
+.nothing
+{
+    height: 800px;
+    width: 1000px;
+    margin-left: 130px;
+}
+.search
+{
+    margin-top: 4px;
+}
+.user
+{
+    border: 1px solid lightgrey; 
+}
