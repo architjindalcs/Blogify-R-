@@ -49,7 +49,7 @@
     <% } %>
     <div class="container">
       <% if(results.length!=0) { %>
-       <h1 class="display-4" style="margin-left: 40px;">Sent Requests 🚀</h1>
+       <h3 class="display-4" style="margin-left: 80px; font-size: 50px;">Sent Requests📲</h3>
        <br>
       <% } %>
       <div class="row">
@@ -62,8 +62,8 @@
                     <img src="<%=results[i].profileimg %>" alt="" class="profileimg">
             
                
-                    <h3 class="use">@<%=results[i].username%></h3>
-                    <h3 class="name"><%=results[i].name%></h3>
+                    <h3 class="display-4 use" style="font-size: 30px;">@<%=results[i].username%></h3>
+                    <h3 class="display-4 name" style="font-size: 30px;"><%=results[i].name%></h3>
                     <a href="cancel/<%=results[i].username %>"><button class="btn btn-info">Cancel Request❌</button></a>
             </div>
            </div> 

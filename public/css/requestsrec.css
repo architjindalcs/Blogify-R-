@@ -39,7 +39,7 @@
 {
     height: 250px;
     width: 250px;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 .name h1
 {
@@ -75,10 +75,7 @@
 {
   margin-left: 35px;
 }
-.btn2
-{
 
-}
 .nothing
 {
     height: 800px;
@@ -97,8 +94,4 @@
 .container
 {
     margin-top: 0;
-}
-.tbt
-{
-  
 }

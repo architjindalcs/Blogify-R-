@@ -85,24 +85,24 @@ app.post("/register",function(req,res)
 {
     User.find({username: req.body.username},function(err,results)
     {
-        console.log(results);
+        // console.log(results);
         if(results.length!=0)
         {
-            console.log("Error");
-            console.log(results);
+            // console.log("Error");
+            // console.log(results);
             res.render("signupfail");
         }
         else
         {
             var newuser=req.body;
-            console.log(newuser);
+            // console.log(newuser);
             if(newuser.profileimg==='')
             {
                 newuser.profileimg="https://s3.amazonaws.com/whisperinvest-images-prod/default-profile.png";
             }
             var password=newuser.password;
             delete newuser["password"];
-            console.log(newuser);
+            // console.log(newuser);
             User.register(newuser,password,function(err,user)
             {
                 res.redirect("/");
@@ -179,7 +179,7 @@ app.get("/search",isLoggedin,function(req,res)
             }
 
         }
-        console.log(results);
+        // console.log(results);
         res.render("searchresults",{results: results,loggedUser: req.user.username,q: query});
     })
 })
@@ -309,11 +309,12 @@ app.get("/requests",function(req,res)
                 
                 for(var j=0;j<recR.length;j++)
                 {
-                    console.log(recR[j]);
+                   
+                    // console.log(recR[j]);
                     if(recR[j]===username)
                     {
                         results.push(users[i]);
-                        console.log(users[i]);
+                        // console.log(users[i]);
                         break;
                     }
                 }

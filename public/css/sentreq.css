@@ -46,12 +46,13 @@
 {
     margin-top: 5px;
     text-align: center;
-    font-size: 30px;
-    font-family: 'Nunito', sans-serif;
+  
+    /* font-family: 'Nunito', sans-serif; */
 }
 .btn
 {
     margin-left: 70px;
+    margin-top: 10px;
 }
 .nothing
 {
@@ -62,4 +63,8 @@
 .search
 {
     margin-top: 4px;
+}
+.user
+{
+    border: 1px solid lightgrey; 
 }
