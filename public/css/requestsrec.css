@@ -71,9 +71,13 @@
 {
     height: 40px;
 }
-.btn
+.btn1
 {
-    margin-left: 290px;
+  margin-left: 35px;
+}
+.btn2
+{
+
 }
 .nothing
 {
@@ -83,7 +87,7 @@
 }
 .left
 {
-    background-color: steelblue;
+    background-color: teal;
     width: 50%;
 }
 .space
@@ -93,4 +97,8 @@
 .container
 {
     margin-top: 0;
+}
+.tbt
+{
+  
 }

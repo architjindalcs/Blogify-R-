@@ -51,18 +51,7 @@
        <br>
       <% } %>
         <% for(var i=0;i!=results.length;i++) { %>
-            <% var rec_req=results[i].rec_req,alreadySent=false,following=false %>
-            <% for(var j=0;j!=results[i].followers.length;j++) { %>
-               <% if(results[i]["followers"][j]===loggedUser){ %>
-                <%    following=true;break; %>
-            <%    } %>
-            <% } %> 
-            <% for(var j=0;j!=results[i].rec_req.length;j++) { %>
-                <% if(results[i]["rec_req"][j]===loggedUser){ %>
-                 <%    alreadySent=true;break; %>
-             <% } %>
-             <% } %> 
-            
+
             <div class="row ress">
                 <div class="col-lg-1 left">
 
@@ -88,15 +77,18 @@
                     
                     </div>
                     <div class="col-12 option aac">
-                      <% if(alreadySent===true) { %>
-                        <a href="/cancel/<%= results[i].username %>"> <button class="btn btn-info">Cancel Request❌</button></a>
-                        <% } %>
-                        <% if(following===true) { %>
-                          <a href="/unfollow/<%= results[i].username %>" > <button class="btn btn-danger">Unfollow😐</button></a>
-                          <% } %>
-                          <% if(alreadySent===false && following===false) { %>
-                            <a href="/send/<%= results[i].username %> " > <button class="btn btn-primary">Send Request🚀</button></a>
-                            <% } %>
+                        <div class="row">
+                            <div class="col-lg-2">
+
+                            </div>
+                            <div class="col-lg-4">
+                                <a href="/delete/<%= results[i].username %>"> <button class="btn btn1 btn-info">Delete Request❌</button></a>
+                            </div>
+                            <div class="col-lg-6 tbt">
+                                <a href="/accept/<%= results[i].username %>"> <button class="btn btn2 btn-success">Accept Request✔</button></a>
+                            </div>
+                        </div>
+                      
                     </div>
                    </div>
                    

@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet"  href="/css/searchresults.css">
+    <link rel="stylesheet"  href="/css/sentreq.css">
     <link href="https://fonts.googleapis.com/css?family=Gotu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Gotu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans|Quicksand:500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
@@ -47,67 +49,27 @@
     <% } %>
     <div class="container">
       <% if(results.length!=0) { %>
-       <h1 class="display-4">Results ✔</h1>
+       <h1 class="display-4" style="margin-left: 40px;">Sent Requests 🚀</h1>
        <br>
       <% } %>
+      <div class="row">
         <% for(var i=0;i!=results.length;i++) { %>
-            <% var rec_req=results[i].rec_req,alreadySent=false,following=false %>
-            <% for(var j=0;j!=results[i].followers.length;j++) { %>
-               <% if(results[i]["followers"][j]===loggedUser){ %>
-                <%    following=true;break; %>
-            <%    } %>
-            <% } %> 
-            <% for(var j=0;j!=results[i].rec_req.length;j++) { %>
-                <% if(results[i]["rec_req"][j]===loggedUser){ %>
-                 <%    alreadySent=true;break; %>
-             <% } %>
-             <% } %> 
-            
-            <div class="row ress">
-                <div class="col-lg-1 left">
+            <div class="col-1 aa1">
 
-                </div>
-                <div class="col-lg-4 aac">
-                    <img src="<%= results[i].profileimg %>" alt="">
-                </div>
-                <div class="col-lg-7 forb aac">  
-                   <div class="row">
-                     <div class="col-12 name">
-                      <h1 class="display-4">💬<%=results[i].name%> (@<%= results[i].username %>)</h1>
-                     </div>
-                     <div class="col-12 line">
-
-                     </div>
-                     <div class="col-lg-6 followers">
-                      <h1 class="display-4">✔Followers: <%=results[i].followers.length%> </h1>
-                     </div>
-                     <div class="col-lg-6 following">
-                      <h1 class="display-4">✔Following: <%=results[i].following.length%> </h1>
-                    </div>
-                    <div class="col-12 line1 aac">
-                    
-                    </div>
-                    <div class="col-12 option aac">
-                      <% if(alreadySent===true) { %>
-                        <a href="/cancel/<%= results[i].username %>"> <button class="btn btn-info">Cancel Request❌</button></a>
-                        <% } %>
-                        <% if(following===true) { %>
-                          <a href="/unfollow/<%= results[i].username %>" > <button class="btn btn-info">Unfollow❌</button></a>
-                          <% } %>
-                          <% if(alreadySent===false && following===false) { %>
-                            <a href="/send/<%= results[i].username %> " > <button class="btn btn-primary">Send Request🚀</button></a>
-                            <% } %>
-                    </div>
-                   </div>
-                   
-                </div>
-                <div class="col-12 space">
-
-                </div>
             </div>
-
-
+           <div class="col-3 aa2">
+            <div class="user">
+                    <img src="<%=results[i].profileimg %>" alt="" class="profileimg">
+            
+               
+                    <h3 class="use">@<%=results[i].username%></h3>
+                    <h3 class="name"><%=results[i].name%></h3>
+                    <a href="cancel/<%=results[i].username %>"><button class="btn btn-info">Cancel Request❌</button></a>
+            </div>
+           </div> 
         <% } %>
+      </div>
+ 
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

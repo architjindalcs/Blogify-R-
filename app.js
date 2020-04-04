@@ -255,12 +255,44 @@ app.get("/delete/:userid",isLoggedin,function(req,res)
             }
         }
         User.findOneAndUpdate({username: req.params.userid},function(err,user){});
-        res.send("Request is deleted..."); //Rediredict to a cancellation page...
+        res.redirect("back");
     })
 })
 app.get("/accept/:userid",function(req,res)
 {
-    
+    User.findOne({username: req.user.username},function(err,user)
+    {
+        var prev=user.followers;
+        prev.push(req.params.userid);
+        var rec_req=user.rec_req;
+        var newR=[];
+        for(var i=0;i<rec_req.length;i++)
+        {
+            if(rec_req[i]!=req.params.userid)
+            {
+                newR.push(rec_req[i]);
+            }
+        }
+        User.findOneAndUpdate({username: req.user.username},{$set:{followers: prev,rec_req: newR}},
+            function(err,user){});
+    })
+    User.findOne({username: req.params.userid},function(err,user)
+    {
+        var prev=user.following;
+        prev.push(req.user.username);
+        var sent_req=user.sent_req;
+        var newR=[];
+        for(var i=0;i<sent_req.length;i++)
+        {
+            if(sent_req[i]!=req.user.username)
+            {
+                newR.push(sent_req[i]);
+            }
+        }
+        User.findOneAndUpdate({username: req.params.userid},{$set:{following: prev,sent_req: newR}},
+            function(err,user){});
+            res.redirect("back");
+    })
 })
 app.get("/requests",function(req,res)
 {
@@ -269,13 +301,56 @@ app.get("/requests",function(req,res)
         // console.log(user.rec_req);
         var results=[];
         var recR=user.rec_req;
-        for(var i=0;i<recR.length;i++)
+        User.find({},function(err,users)
         {
-            
-        }
-        res.render("requestsrec",{requests: user.rec_req,loggedUser: req.user.username});
+            for(var i=0;i<users.length;i++)
+            {
+                var username=users[i].username;
+                
+                for(var j=0;j<recR.length;j++)
+                {
+                    console.log(recR[j]);
+                    if(recR[j]===username)
+                    {
+                        results.push(users[i]);
+                        console.log(users[i]);
+                        break;
+                    }
+                }
+            }
+            res.render("requestsrec",{results: results,loggedUser: req.user.username});
+            // console.log("Results: ",results);
+        })
+        // res.send("Welcome...");
+        // res.render("requestsrec",{requests: user.rec_req,loggedUser: req.user.username});
     })
     
+})
+app.get("/sentrequests",isLoggedin,function(req,res)
+{
+    User.findOne({username: req.user.username},function(err,user)
+    {
+        var sentR=user.sent_req;
+        var results=[];
+        User.find({},function(err,users)
+        {
+            for(var i=0;i<users.length;i++)
+            {
+                for(var j=0;j<sentR.length;j++)
+                {
+                    if(sentR[j]==users[i].username)
+                    {
+                        results.push(users[i]);
+                        break;
+                    }
+       
+                }
+            }
+   
+            res.render("sentreq.ejs",{results: results,loggedUser: req.user.username});
+        })
+      
+    })
 })
 app.listen(3000,function(){
     console.log("Server has started!!")
