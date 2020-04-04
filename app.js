@@ -262,6 +262,21 @@ app.get("/accept/:userid",function(req,res)
 {
     
 })
+app.get("/requests",function(req,res)
+{
+    User.findOne({username: req.user.username},function(err,user)
+    {
+        // console.log(user.rec_req);
+        var results=[];
+        var recR=user.rec_req;
+        for(var i=0;i<recR.length;i++)
+        {
+            
+        }
+        res.render("requestsrec",{requests: user.rec_req,loggedUser: req.user.username});
+    })
+    
+})
 app.listen(3000,function(){
     console.log("Server has started!!")
 })
