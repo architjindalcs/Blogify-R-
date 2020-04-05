@@ -1,9 +1,13 @@
-
+body
+{
+    background-color: whitesmoke !important;
+}
 .topnav
 {
     height: 50px;
     width: 100% ;
-    background-color: whitesmoke;
+    background-color: white;
+    border-bottom: 1px solid lightgray;
     /* position: fixed; */
 }
 .logo
@@ -48,4 +52,46 @@
 
 .aaa{
     font-size: 20px;
+}
+.data
+{
+    background-color: white;
+    border: 1px solid lightgray;
+}
+
+.username p
+{
+   font-size: 20px;
+   margin-top: 20px;
+   margin-bottom: 5px;
+   font-family: sans-serif;
+}
+.likes p
+{
+    font-size: 20px;
+    font-family: sans-serif;
+}
+.likes
+{
+    margin-top: 12px;
+}
+.username img
+{
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+.spacing
+{
+    height: 60px;
+}
+.image img
+{
+    width: 100%;
+}
+.likes .row p
+{
+    margin-top: 5px;
 }

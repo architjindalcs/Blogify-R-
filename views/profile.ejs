@@ -58,6 +58,71 @@
 
       </div>
     </div>
+    <div class="row">
+
+      <% for(var i=0;i!=results.length;i++){ %>
+        <div class="col-12 spacing">
+          
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-8 data">
+          <div class="row username">
+            <div class="col-1">
+             <% var temp; %>
+            <% for(var j=0;j!=images.length;j++) { %>
+             <% if(images[j].username===results[i].createdby){ %>
+              <%  temp=images[j].profileimg;break; %>
+            <%  } %>
+            <% } %>
+              <img src=<%= temp %> alt="">
+            </div>
+           
+            <div class="col-5">
+              <p class="cby"><%= results[i].createdby %></p>
+            </div>
+            <div class="col-4">
+
+            </div>
+            </div>
+    
+          <div class="image row">
+              <img src="<%= results[i].image %>" alt="" class="postimg ">
+          </div>
+          <div class="likes">
+            <div class="row">
+              <div class="col-1">
+                <% var liked=false; %>
+                <% for(var j=0;j!=results[i].likedby.length;j++) { %>
+                  <% if(results[i].likedby[j]==loggedUser) { %>
+                    <% liked=true; break; %>
+                 <% } %>
+                <% } %>
+               <% if(liked) { %>
+                <a href="/unlike/<%=results[i]._id%>"><img src="https://www.searchpng.com/wp-content/uploads/2019/02/Instagram-Like-Icon-715x715.png" alt="" style="height: 40px; width: 40px;"> </a>
+               <% } %>
+               <% if(liked==false){ %>
+                <a href="/like/<%=results[i]._id%>"> <img src="https://cdn0.iconfinder.com/data/icons/instagram-ui-1/24/Instagram-UI_like-512.png" alt="" style="height: 40px; width: 40px;"></a>
+                <% } %>
+              </div>
+              <div class="col-4">
+                <p><%= results[i].likedby.length %> likes</p>
+              </div>
+            </div>
+        
+          </div>
+          <div class="row captions">
+          <p><%= results[i].caption %></p>  
+          </div>
+        </div>
+        <div class=col-2>
+
+        </div>
+     
+     <% } %>
+
+   </div>
  
    </div>
     <script src="/js/profile.js"></script>
