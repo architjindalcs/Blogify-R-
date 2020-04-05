@@ -2,7 +2,7 @@
 {
     height: 50px;
     width: 100% ;
-    background-color: whitesmoke;
+    background-color: mintcream;
     /* position: fixed; */
 }
 
@@ -48,6 +48,12 @@
     text-align: center;
   
     /* font-family: 'Nunito', sans-serif; */
+}
+body
+{
+    background: url("https://images.homedepot-static.com/productImages/28f36616-3bb0-44b9-8eac-21c226a0f018/svn/magnolia-home-by-joanna-gaines-wallpaper-mh1517-64_1000.jpg");
+    /* background-repeat: no-repeat; */
+    background-size: cover;
 }
 .btn
 {

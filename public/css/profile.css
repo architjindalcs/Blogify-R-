@@ -4,7 +4,7 @@
     height: 50px;
     width: 100% ;
     background-color: whitesmoke;
-    position: fixed;
+    /* position: fixed; */
 }
 .logo
 {
@@ -30,4 +30,22 @@
 .topnav a
 {
     color: black;
+}
+::placeholder
+{
+    text-align: center;
+}
+.postb
+{
+    margin-left: 160px;
+    width: 200px;
+}
+
+.vis
+{
+    display: none;
+}
+
+.aaa{
+    font-size: 20px;
 }

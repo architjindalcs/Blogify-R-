@@ -65,6 +65,32 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser())
 //Passport
+const blogSchema=new mongoose.Schema({
+    caption:
+    {
+        type: String,
+        default: "na"
+    },
+    likedby:
+    {
+        type: Array,
+        default: []
+    },
+    image:
+    {
+        type: String,
+        default: "na"
+    },
+    createdby: String,
+    timeStamp: Number,
+    timeString: String
+});
+const Blog=mongoose.model("Blog",blogSchema);
+const imgSchema=mongoose.Schema({
+    username: String,
+    profileimg: String
+})
+const Image=mongoose.model("Image",imgSchema);
 function isLoggedin(req,res,next)
 {
     if(req.isAuthenticated())
@@ -100,6 +126,11 @@ app.post("/register",function(req,res)
             {
                 newuser.profileimg="https://s3.amazonaws.com/whisperinvest-images-prod/default-profile.png";
             }
+            const newimg=new Image({
+                username: newuser.username,
+                profileimg: newuser.profileimg
+            });
+            newimg.save();
             var password=newuser.password;
             delete newuser["password"];
             // console.log(newuser);
@@ -119,8 +150,45 @@ app.get("/profile",isLoggedin,function(req,res)  //To be updated..profile homepa
 {
     const loggedUser=req.user.username;
     User.findOne({username: loggedUser},function(err,user)
-    {   
-        res.render("profile",{loggedUser: req.user.username});
+    {   var following=user.following;
+        var results=[];
+        following.push(loggedUser);
+        Blog.find({},function(err,blogs)
+        {
+            // var cby=[];
+            for(var i=0;i<blogs.length;i++)
+            {
+                for(var j=0;j<following.length;j++)
+                {
+                    if(blogs[i].createdby==following[j])
+                    {
+                        results.push(blogs[i]);
+                        // cby.push(blogs[i].createdby);
+                        break;
+                    }
+                }
+            }
+
+            results.sort(function(a,b){
+                var time1=a.timeStamp;
+                var time2=b.timeStamp;
+                if(time1<time2)
+                return -1;
+                if(time1>time2)
+                return -1;
+                return 0;
+            });
+            // console.log("Sorted: ",results);
+            Image.find({},function(err,images)
+            {
+                console.log("Results: ",results);
+                console.log("Images: ",images);
+                res.render("profile",{loggedUser: req.user.username,results: results,images: images});
+              
+            })
+          
+        })
+       
     })
 })
 app.get("/loginfailed",function(req,res)
@@ -459,6 +527,19 @@ app.get("/remove/:userid",function(req,res)
         User.findOneAndUpdate({username: req.params.userid},{$set:{following: newR}},function(err,user){});
         res.redirect("back");
     })
+})
+app.post("/newpost",function(req,res)
+{
+    var newblog=req.body;
+    newblog["createdby"]=req.user.username;
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    var today  = new Date();
+    newblog["timeString"]=today.toLocaleTimeString("en-US",options);
+    newblog["timeStamp"]=today.getTime();
+    // console.log(newblog);
+    const newB=new Blog(newblog);
+    newB.save();
+    res.redirect("/profile");
 })
 app.listen(3000,function(){
     console.log("Server has started!!")
