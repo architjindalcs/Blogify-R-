@@ -541,6 +541,38 @@ app.post("/newpost",function(req,res)
     newB.save();
     res.redirect("/profile");
 })
+app.get("/like/:blogid",function(req,res)
+{
+    Blog.findOne({_id: req.params.blogid},function(err,blog)
+    {
+        var likes=blog.likedby;
+        likes.push(req.user.username);
+        Blog.findOneAndUpdate({_id: req.params.blogid},{$set:{likedby: likes}},function(err,blog){});
+        res.redirect("back");
+    })
+})
+app.get("/unlike/:blogid",function(req,res)
+{
+    Blog.findOne({_id: req.params.blogid},function(err,blog)
+    {
+        var likes=blog.likedby;
+        var newlikes=[];
+        for(var i=0;i<likes.length;i++)
+        {
+            if(likes[i]!=req.user.username)
+            {
+                newlikes.push(likes[i]);
+            }
+        }
+        Blog.findOneAndUpdate({_id: req.params.blogid},{$set:{likedby: newlikes}},function(err,blog){});
+        res.redirect("back");
+    })
+})
+app.get("/deleteblog/:blogid",function(req,res)
+{
+    Blog.findOneAndDelete({_id: req.params.blogid},function(err,blog){});
+    res.redirect("back");
+})
 app.listen(3000,function(){
     console.log("Server has started!!")
 })

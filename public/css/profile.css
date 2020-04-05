@@ -64,16 +64,18 @@ body
    font-size: 20px;
    margin-top: 20px;
    margin-bottom: 5px;
-   font-family: sans-serif;
+   /* font-family: 'Muli', sans-serif; */
+   margin-left: 0px;
 }
 .likes p
 {
     font-size: 20px;
-    font-family: sans-serif;
+    /* font-family: 'Muli', sans-serif; */
+    margin-left: 0px;
 }
 .likes
 {
-    margin-top: 12px;
+    margin-top: 15px;
 }
 .username img
 {
@@ -93,5 +95,13 @@ body
 }
 .likes .row p
 {
-    margin-top: 5px;
+    margin-top: 8px;
+}
+.captions p
+{
+    margin-left: 20px;
+    margin-right: 20px;
+    /* font-family: sans-serif; */
+    font-size: 20px;
+    font-weight: 200;
 }
