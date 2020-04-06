@@ -129,7 +129,7 @@ app.post("/register",function(req,res)
             }
             const newimg=new Image({
                 username: newuser.username,
-                profileimg: newuser.profileimgsss
+                profileimg: newuser.profileimg
             });
             newimg.save();
             var password=newuser.password;

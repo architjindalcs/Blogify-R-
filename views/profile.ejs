@@ -85,7 +85,9 @@
               <p class="cby"><%= results[i].createdby %></p>
             </div>
             <div class="col-1">
+             <% if(results[i].createdby===loggedUser) { %>
               <p style="margin-top: 18px;">Delete</p>
+              <% } %>
             </div>
             <div class="col-1">
               <% if(results[i].createdby===loggedUser){ %>
