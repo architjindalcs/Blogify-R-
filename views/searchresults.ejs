@@ -32,7 +32,7 @@
         <a href="/sentrequests">Sent Request✔</a>
        </div>
        <div class="col-lg-1">
-       <a href="/manage">Manage ⚙💻</a>
+       <a href="/manage">Manage</a>
       </div>
       <div class="col-lg-1">
         <a href="/logout"><%= loggedUser %><br>📲</a>
@@ -95,7 +95,7 @@
                           <a href="/unfollow/<%= results[i].username %>" > <button class="btn btn-info">Unfollow❌</button></a>
                           <% } %>
                           <% if(alreadySent===false && following===false) { %>
-                            <a href="/send/<%= results[i].username %> " > <button class="btn btn-primary">Send Request🚀</button></a>
+                            <a href="/send/<%= results[i].username %> " > <button class="btn btn-primary">Send Request✔</button></a>
                             <% } %>
                     </div>
                    </div>
