@@ -129,7 +129,7 @@ app.post("/register",function(req,res)
             }
             const newimg=new Image({
                 username: newuser.username,
-                profileimg: newuser.profileimg
+                profileimg: newuser.profileimgsss
             });
             newimg.save();
             var password=newuser.password;
@@ -578,6 +578,6 @@ app.get("/deleteblog/:blogid",function(req,res)
     Blog.findOneAndDelete({_id: req.params.blogid},function(err,blog){});
     res.redirect("back");
 })
-app.listen(3000,function(){
+app.listen(process.env.PORT || 3000,function(){
     console.log("Server has started!!")
 })
