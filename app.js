@@ -22,7 +22,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 //Passport
-mongoose.connect("mongodb://127.0.0.1:27017/blogSiteDB",{useNewUrlParser: true,useUnifiedTopology: true});
+const connectionURLnew="mongodb+srv://archit:archit@cluster0-853ii.mongodb.net/blogSiteDB";
+const prevURL="mongodb://127.0.0.1:27017/blogSiteDB";
+mongoose.connect(connectionURLnew,{useNewUrlParser: true,useUnifiedTopology: true});
 const userSchema=new mongoose.Schema({
     name: String,
     username: String,
@@ -69,7 +71,6 @@ const blogSchema=new mongoose.Schema({
     caption:
     {
         type: String,
-        default: "na"
     },
     likedby:
     {
@@ -79,7 +80,7 @@ const blogSchema=new mongoose.Schema({
     image:
     {
         type: String,
-        default: "na"
+  
     },
     createdby: String,
     timeStamp: Number,
@@ -536,6 +537,10 @@ app.post("/newpost",function(req,res)
     var today  = new Date();
     newblog["timeString"]=today.toLocaleTimeString("en-US",options);
     newblog["timeStamp"]=today.getTime();
+    if(newblog["image"]==="")
+    {
+        newblog["image"]="https://i0.pickpik.com/photos/769/703/611/apple-computer-iphone-keyboard-preview.jpg";
+    }
     // console.log(newblog);
     const newB=new Blog(newblog);
     newB.save();
