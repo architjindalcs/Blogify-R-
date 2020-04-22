@@ -213,6 +213,22 @@ app.get("/search",isLoggedin,function(req,res)
 {
     const query=req.query.query.toLowerCase();
     // query=query.toLowerCase();
+    if(query===".")
+    {
+        User.find({},function(err,users)
+        {
+            var results=[];
+            for(var i=0;i<users.length;i++)
+            {
+                if(users[i].username!=req.user.username)
+                {
+                    results.push(users[i]);
+                }
+            }
+            res.render("searchresults",{results: results,loggedUser: req.user.username,q: query});
+
+        })
+    }
     User.find({},function(err,users)
     {
        var results=[];
@@ -230,11 +246,12 @@ app.get("/search",isLoggedin,function(req,res)
             currName=currName.toLowerCase();
             for(var k=0;k<=currName.length;k++)
             {
-                if(currName.slice(k,k+len)==query)
+                if(currName.slice(k,k+len)==query )
                 {
                     poss=true;
                     break;
                 }
+              
             }
             if(poss==true)
             {
