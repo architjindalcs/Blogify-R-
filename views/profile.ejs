@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet"  href="/css/profile.css">
     <link href="https://fonts.googleapis.com/css?family=Gotu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:200&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans|Quicksand:500&display=swap" rel="stylesheet">
@@ -45,13 +46,14 @@
    <div class="container">
      <br>
      <a href="#" class="aaa">📑 Post Something</a>
+    
     <div class="row">
       <div class="col-3 formc arrow">
 
       </div>
       <div class="col-6 formc">
         <form action="/newpost" method="POST">
-          <input type="text"  class="form-control cols1"  placeholder="Image Link(optional)" name="image">
+          <input type="text"  class="form-control cols1"  placeholder="Image Link(optional)" name="image" >
           <textarea rows = "6" cols = "71" name = "caption" placeholder=" What's on your mind?" required maxlength="5000"></textarea>
           <button class="btn btn-info postb">POST</button>
         </form>
@@ -63,6 +65,14 @@
     <div class="row">
 
       <% for(var i=0;i!=results.length;i++){ %>
+        <% var commentsBlog=[] %>
+        <% var bid= results[i]._id.toString() %>
+
+       <% for(var j=0;j!=comments.length;j++){ %>
+         <% if(comments[j].blogid==bid){ %>
+          <%  commentsBlog.push(comments[j]) %>
+        <%  } %>  
+      <%  }  %>
         <div class="col-12 spacing">
           
         </div>
@@ -118,6 +128,15 @@
               <div class="col-4">
                 <p><%= results[i].likedby.length %> likes</p>
               </div>
+              <div class="col-3">
+             
+              </div>
+              <div class="col-1" class="commentsection">
+                <img src="https://lh3.googleusercontent.com/proxy/NEEFmeuEn0G3S6EcioaY7vsK5ET9m7_HFsz405A4mCKsCkt8JrU4gIsqghA7FpcSb_dG4ZkCAC4qSDblv2A_lwzI2AqrbEwYgYUIzGxvF6Lp3Jm6tlf-Cla9oZnZ-Q3h3JTmhZRI5-lWaAOoiHra8WiI_Q" alt="" style="height: 45px; width: 45px;"> 
+              </div>
+              <div class="col-3">
+                <p> <%= commentsBlog.length %> comments</p>
+              </div>
             </div>
         
           </div>
@@ -125,6 +144,49 @@
             <p><%= results[i].caption %></p>  
            
           </div>
+          <div class="row captions"> 
+            <div class="col-12">
+              <form action="/addcomment/<%= results[i]._id %>" method="POST">
+                <input type="text" name="comment" placeholder="Add a comment...(120 chars)" style="width: 100%;" maxlength="120"> 
+              </form>
+            </div>
+         
+          </div>
+          <div class="row captions" style="height: 10px;"> 
+      
+         
+          </div>
+          <div class="row" >  
+           <% for(var j=0;j!=commentsBlog.length;j++){ %>
+            <br>
+            <div class="col-1">
+               <% var userimg; %>
+               <% var cuser; %>
+               <% for(var k=0;k!=images.length;k++){ %>
+                <%   if(images[k].username==commentsBlog[j].commentedBy){ %>
+                 <%   userimg=images[k].profileimg; cuser=images[k].username;break; %>
+                <%  } %>
+               <% } %>
+             
+              <img src="<%= userimg %>" alt="" class="commentUser" >
+      
+            </div>
+            <div class="col-9">
+              <p class="usernamecomment" style="margin-left: 0;" ><%= cuser %></p>
+            </div>
+            <div class="col-2">
+             <% if(commentsBlog[j].commentedBy===loggedUser){ %>
+                Delete <a href="/deleteComment/<%= commentsBlog[j]._id %>"><img src="https://cdn2.iconfinder.com/data/icons/harmonicons-03/64/delete-512.png" alt="" style="height: 30px; width: 30x;"> </a>
+             <% } %>
+            </div>
+            <div class="col-12">
+              <p class="comment">💬 <%= commentsBlog[j].comment %></p>
+            </div>
+            <br>
+            
+           <% } %>
+          </div>
+        
         </div>
         <div class=col-2>
 

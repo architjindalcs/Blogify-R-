@@ -24,7 +24,7 @@ app.use(passport.session());
 //Passport
 const connectionURLnew="mongodb+srv://archit:archit@cluster0-853ii.mongodb.net/blogSiteDB";
 const prevURL="mongodb://127.0.0.1:27017/blogSiteDB";
-mongoose.connect(connectionURLnew,{useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect(prevURL,{useNewUrlParser: true,useUnifiedTopology: true});
 const userSchema=new mongoose.Schema({
     name: String,
     username: String,
@@ -92,6 +92,12 @@ const imgSchema=mongoose.Schema({
     profileimg: String
 })
 const Image=mongoose.model("Image",imgSchema);
+const commentSchema=mongoose.Schema({
+    blogid: String,
+    comment: String,
+    commentedBy: String
+})
+const Comment=mongoose.model("Comment",commentSchema);
 function isLoggedin(req,res,next)
 {
     if(req.isAuthenticated())
@@ -182,10 +188,12 @@ app.get("/profile",isLoggedin,function(req,res)  //To be updated..profile homepa
             // console.log("Sorted: ",results);
             Image.find({},function(err,images)
             {
-                console.log("Results: ",results);
-                console.log("Images: ",images);
-                res.render("profile",{loggedUser: req.user.username,results: results,images: images});
-              
+                // console.log("Results: ",results);
+                // console.log("Images: ",images);
+                Comment.find({},function(err,comments)
+                {
+                    res.render("profile",{loggedUser: req.user.username,results: results,images: images,comments: comments});
+                })
             })
           
         })
@@ -573,9 +581,33 @@ app.get("/unlike/:blogid",function(req,res)
         res.redirect("back");
     })
 })
+
 app.get("/deleteblog/:blogid",function(req,res)
 {
     Blog.findOneAndDelete({_id: req.params.blogid},function(err,blog){});
+    res.redirect("back");
+})
+app.get("/deleteComment/:cid",function(req,res){
+    Comment.findOneAndDelete({_id: req.params.cid},function(err,comments){});
+    res.redirect("back")
+})
+// const commentSchema=mongoose.Schema({
+//     blogid: String,
+//     comment: String,
+//     commentedBy: String
+// })
+// const Comment=mongoose.model("Comment",commentSchema);
+app.post("/addcomment/:blogid",function(req,res)
+{
+    // console.log(req.body);
+    // console.log(req.params.blogid);
+    const newComment={
+        blogid: req.params.blogid,
+        comment: req.body.comment,
+        commentedBy: req.user.username
+    }
+    const nc=new Comment(newComment);
+    nc.save();
     res.redirect("back");
 })
 app.listen(process.env.PORT || 3000,function(){
