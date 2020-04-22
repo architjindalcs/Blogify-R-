@@ -24,7 +24,7 @@ app.use(passport.session());
 //Passport
 const connectionURLnew="mongodb+srv://archit:archit@cluster0-853ii.mongodb.net/blogSiteDB";
 const prevURL="mongodb://127.0.0.1:27017/blogSiteDB";
-mongoose.connect(prevURL,{useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect(connectionURLnew,{useNewUrlParser: true,useUnifiedTopology: true});
 const userSchema=new mongoose.Schema({
     name: String,
     username: String,
