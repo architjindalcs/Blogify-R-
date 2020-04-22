@@ -46,8 +46,8 @@
    <div class="container">
      <br>
      <a href="#" class="aaa">📑 Post Something</a>
-    
-    <div class="row">
+    <div class="formfinal">
+  <div class="row">
       <div class="col-3 formc arrow">
 
       </div>
@@ -62,6 +62,10 @@
 
       </div>
     </div>
+    </div>
+    
+
+    
     <div class="row">
 
       <% for(var i=0;i!=results.length;i++){ %>
@@ -131,8 +135,8 @@
               <div class="col-3">
              
               </div>
-              <div class="col-1" class="commentsection">
-                <img src="https://lh3.googleusercontent.com/proxy/NEEFmeuEn0G3S6EcioaY7vsK5ET9m7_HFsz405A4mCKsCkt8JrU4gIsqghA7FpcSb_dG4ZkCAC4qSDblv2A_lwzI2AqrbEwYgYUIzGxvF6Lp3Jm6tlf-Cla9oZnZ-Q3h3JTmhZRI5-lWaAOoiHra8WiI_Q" alt="" style="height: 45px; width: 45px;"> 
+              <div class="col-1" >
+                <img src="https://cdn3.iconfinder.com/data/icons/faticons/32/view-01-512.png" alt="" style="height: 45px; width: 45px;" class="commentsection"> 
               </div>
               <div class="col-3">
                 <p> <%= commentsBlog.length %> comments</p>
@@ -156,37 +160,54 @@
       
          
           </div>
-          <div class="row" >  
-           <% for(var j=0;j!=commentsBlog.length;j++){ %>
-            <br>
-            <div class="col-1">
-               <% var userimg; %>
-               <% var cuser; %>
-               <% for(var k=0;k!=images.length;k++){ %>
-                <%   if(images[k].username==commentsBlog[j].commentedBy){ %>
-                 <%   userimg=images[k].profileimg; cuser=images[k].username;break; %>
-                <%  } %>
-               <% } %>
-             
-              <img src="<%= userimg %>" alt="" class="commentUser" >
-      
-            </div>
-            <div class="col-9">
-              <p class="usernamecomment" style="margin-left: 0;" ><%= cuser %></p>
-            </div>
-            <div class="col-2">
-             <% if(commentsBlog[j].commentedBy===loggedUser){ %>
-                Delete <a href="/deleteComment/<%= commentsBlog[j]._id %>"><img src="https://cdn2.iconfinder.com/data/icons/harmonicons-03/64/delete-512.png" alt="" style="height: 30px; width: 30x;"> </a>
-             <% } %>
-            </div>
-            <div class="col-12">
-              <p class="comment">💬 <%= commentsBlog[j].comment %></p>
-            </div>
-            <br>
-            
-           <% } %>
+
+       
+          <div class="tohide" >
+            <div class="row" >  
+              <% for(var j=0;j!=commentsBlog.length;j++){ %>
+               <br>
+               <div class="col-1">
+                  <% var userimg; %>
+                  <% var cuser; %>
+                  <% for(var k=0;k!=images.length;k++){ %>
+                   <%   if(images[k].username==commentsBlog[j].commentedBy){ %>
+                    <%   userimg=images[k].profileimg; cuser=images[k].username;break; %>
+                   <%  } %>
+                  <% } %>
+                
+                 <img src="<%= userimg %>" alt="" class="commentUser cclass" >
+         
+               </div>
+               <div class="col-9">
+                 <p class="usernamecomment cclass" style="margin-left: 0; " ><%= cuser %></p>
+               </div>
+               <div class="col-2">
+                <% if(commentsBlog[j].commentedBy===loggedUser){ %>
+                   Delete <a href="/deleteComment/<%= commentsBlog[j]._id %>"><img src="https://cdn2.iconfinder.com/data/icons/harmonicons-03/64/delete-512.png" alt="" style="height: 30px; width: 30x;" class="cclass"> </a>
+                <% } %>
+               </div>
+               <div class="col-12">
+                 <p class="comment cclass">💬 <%= commentsBlog[j].comment %></p>
+               </div>
+               <br>
+               
+              <% } %>
+             </div>
+           
           </div>
-        
+          
+          <div class="likeshere">
+            <div class="row">
+           <%   for(var k=0;k!=results[i].likedby.length;k++){ %>
+            <div class="col-3">
+              <p>👍 <%= results[i].likedby[k] %></p>
+            </div>
+              
+           <%   } %>
+            </div>
+          </div>
+
+
         </div>
         <div class=col-2>
 

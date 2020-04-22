@@ -43,11 +43,12 @@ body
 {
     margin-left: 160px;
     width: 200px;
+    
 }
 
 .vis
 {
-    display: none;
+    display: hidden;
 }
 
 .aaa{
@@ -115,6 +116,7 @@ body
 input{
     border: none;
     border-top: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
     padding: 2px;
 }
 .comment
@@ -128,4 +130,32 @@ input{
     font-family: 'Quicksand', sans-serif;
     font-size: 18px;
     font-weight: 500px;
+}
+.tohide
+{
+    display: none;
+}
+.hideit
+{
+    display: block;
+}
+.formfinal
+{
+    display: none;
+}
+.hide
+{
+    display: none;
+}
+.visi
+{
+    display: block;
+}
+.likeshere 
+{
+    margin-top: 10px;
+}
+.hidd
+{
+    display: none;
 }

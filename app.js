@@ -588,8 +588,10 @@ app.get("/deleteblog/:blogid",function(req,res)
     res.redirect("back");
 })
 app.get("/deleteComment/:cid",function(req,res){
-    Comment.findOneAndDelete({_id: req.params.cid},function(err,comments){});
-    res.redirect("back")
+    console.log("I am here...");
+    Comment.findOneAndDelete({_id: req.params.cid},function(err,comments){res.redirect("back");});
+    
+    
 })
 // const commentSchema=mongoose.Schema({
 //     blogid: String,
