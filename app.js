@@ -192,7 +192,11 @@ app.get("/profile",isLoggedin,function(req,res)  //To be updated..profile homepa
                 // console.log("Images: ",images);
                 Comment.find({},function(err,comments)
                 {
-                    res.render("profilenew",{loggedUser: req.user.username,results: results,images: images,comments: comments});
+                    Image.findOne({username: req.user.username},function(err,image){
+                        res.render("profilenew",{loggedUser: req.user.username,results: results,images: images,comments: comments,image: image});
+                    })
+
+                   
                 })
             })
           
@@ -628,6 +632,14 @@ app.post("/addcomment/:blogid",function(req,res)
     const nc=new Comment(newComment);
     nc.save();
     res.redirect("back");
+})
+app.get("/viewprofile/:userid",isLoggedin,function(req,res)
+{
+    const user=req.params.userid;
+    User.findOne({username: user},function(err,user)
+    {
+        res.render("userprofile",{user: user});
+    })
 })
 app.listen(process.env.PORT || 3000,function(){
     console.log("Server has started!!")

@@ -12,42 +12,45 @@
   </head>
   <title>Search</title>
   <body>
-   <div class="topnav">
-     <div class="row">
-       <div class="col-lg-4">
-        <span class="logo" style="margin-left: 130px;">  Blogify</span>
-       </div>
-       <div class="col-lg-3 search">
-        <form method="GET" action="/search">
-          <input type="text"  class="form-control" placeholder="Search someone..." name="query" required>
-        </form>
-    
-       </div>
-       <div class="col-lg-1">
+    <div class="topnav">
+        <div class="row">
+          <div class="col-lg-3">
+           <span class="logo" style="margin-left: 130px;">  Blogify</span>
+          </div>
+          <div class="col-lg-3 search">
+           <form method="GET" action="/search">
+             <input type="text"  class="form-control" placeholder="Search someone..." name="query" required>
+           </form>
        
+          </div>
+          <div class="col-1">
+
+          </div>
+          <div class="col-lg-5" >
+            <span class="s1" style="margin-left: 95px;">
+            <a href="/profile"><img src="https://static.thenounproject.com/png/682477-200.png" style="height: 30px; width: 30px; margin-top: 10px; margin-left: 30px;"></a>  
+            </span>
+            <span class="s2">
+             <a href="/suggestions"> <img src="https://cdn0.iconfinder.com/data/icons/instagram-ui-1/24/Instagram-UI_discover_people-512.png" style="height: 35px; width: 35px; margin-top: 10px; margin-left: 30px;"></a>
+            </span>
+            <span class="s3">
+              <img src="https://cdn0.iconfinder.com/data/icons/instagram-ui-1/24/Instagram-UI_like-512.png" style="height: 35px; width: 35px; margin-top: 10px; margin-left: 30px;">
+            </span>
+
+            <span class="s5">
+             <a href="/logout"> <img src="https://static.thenounproject.com/png/205237-200.png" style="height: 35px; width: 35px; margin-top: 10px; margin-left: 30px;"> </a>
+            </span>
+         </div>
+
+    
+      
+        </div>
       </div>
-       <div class="col-lg-1">
-        <a href="/requests">Received Request✔</a>
-       </div>
-       <div class="col-lg-1">
-        <a href="/sentrequests">Sent Request✔</a>
-       </div>
-       <div class="col-lg-1">
-       <a href="/manage">Manage Account</a>
-      </div>
-      <div class="col-lg-1">
-        <a href="/logout"><%= loggedUser %><br>📲</a>
-      </div>
-   
-     </div>
-    </div>
-    <br>
-    <br>
     <% if(results.length===0) { %>
       <img src="https://cdn.dribbble.com/users/283708/screenshots/7084440/media/6cd8b29540bcfb6a7693c27f58db7b56.png" alt="" class="nothing">
     <% } %>
     <div class="container">
-        <p style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color: darkgrey;"> Search Results </p>
+        <p style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color: darkgrey; margin-top: 25px"> Search Results </p>
         <div class="row">
 
 
@@ -66,7 +69,7 @@
                 
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12" style="border: 1px solid lightgrey; padding-left: 10px; padding-right: 10px;">
                     <div class="imageclass">
-                        <img src="<%= results[i].profileimg %>" alt="" class="img-fluid" style="border-radius: 130px; margin-top: 10px; height: 120px; width: 120px; margin-left: 15%;">
+                 <a href="/viewprofile/<%= results[i].username %>"><img src="<%= results[i].profileimg %>" alt="" class="img-fluid" style="border-radius: 130px; margin-top: 10px; height: 120px; width: 120px; margin-left: 15%;"></a>  
                     </div>
                     <div class="usernameclass" style="text-align: center;">
                         <%= results[i].username %>

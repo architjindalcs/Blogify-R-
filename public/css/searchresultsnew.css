@@ -2,7 +2,8 @@
 {
     height: 50px;
     width: 100% ;
-    background-color: whitesmoke;
+    background-color: white;
+    border-bottom: 1px solid lightgray;
     /* position: fixed; */
 }
 .logo
