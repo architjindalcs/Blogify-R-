@@ -23,8 +23,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 //Passport
 const connectionURLnew="mongodb+srv://archit:archit@cluster0-853ii.mongodb.net/blogSiteDBNew";
-const prevURL="mongodb://127.0.0.1:27017/blogSiteDB";
-mongoose.connect(connectionURLnew,{useNewUrlParser: true,useUnifiedTopology: true});
+const prevURL="mongodb://127.0.0.1:27017/blogifyyDB";
+mongoose.connect(prevURL,{useNewUrlParser: true,useUnifiedTopology: true});
 const userSchema=new mongoose.Schema({
     name: String,
     username: String,
@@ -193,7 +193,7 @@ app.get("/profile",isLoggedin,function(req,res)  //To be updated..profile homepa
                 Comment.find({},function(err,comments)
                 {
                     Image.findOne({username: req.user.username},function(err,image){
-                        res.render("profilenew",{loggedUser: req.user.username,results: results,images: images,comments: comments,image: image});
+                        res.render("profilenew",{loggedUser: req.user.username,results: results,images: images,comments: comments,simage: image});
                     })
 
                    
@@ -635,11 +635,7 @@ app.post("/addcomment/:blogid",function(req,res)
 })
 app.get("/viewprofile/:userid",isLoggedin,function(req,res)
 {
-    const user=req.params.userid;
-    User.findOne({username: user},function(err,user)
-    {
-        res.render("userprofile",{user: user});
-    })
+        
 })
 app.listen(process.env.PORT || 3000,function(){
     console.log("Server has started!!")
