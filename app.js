@@ -22,7 +22,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 //Passport
-const connectionURLnew="mongodb+srv://archit:archit@cluster0-853ii.mongodb.net/blogSiteDB";
+const connectionURLnew="mongodb+srv://archit:archit@cluster0-853ii.mongodb.net/blogSiteDBNew";
 const prevURL="mongodb://127.0.0.1:27017/blogSiteDB";
 mongoose.connect(connectionURLnew,{useNewUrlParser: true,useUnifiedTopology: true});
 const userSchema=new mongoose.Schema({
@@ -175,7 +175,7 @@ app.get("/profile",isLoggedin,function(req,res)  //To be updated..profile homepa
                     }
                 }
             }
-
+            
             results.sort(function(a,b){
                 var time1=a.timeStamp;
                 var time2=b.timeStamp;
@@ -192,7 +192,7 @@ app.get("/profile",isLoggedin,function(req,res)  //To be updated..profile homepa
                 // console.log("Images: ",images);
                 Comment.find({},function(err,comments)
                 {
-                    res.render("profile",{loggedUser: req.user.username,results: results,images: images,comments: comments});
+                    res.render("profilenew",{loggedUser: req.user.username,results: results,images: images,comments: comments});
                 })
             })
           
@@ -213,7 +213,7 @@ app.get("/search",isLoggedin,function(req,res)
 {
     const query=req.query.query.toLowerCase();
     // query=query.toLowerCase();
-    if(query===".")
+    if(query==="all")
     {
         User.find({},function(err,users)
         {
@@ -225,7 +225,7 @@ app.get("/search",isLoggedin,function(req,res)
                     results.push(users[i]);
                 }
             }
-            res.render("searchresults",{results: results,loggedUser: req.user.username,q: query});
+            res.render("searchresultsnew",{results: results,loggedUser: req.user.username,q: query});
 
         })
     }
@@ -274,7 +274,7 @@ app.get("/search",isLoggedin,function(req,res)
 
         }
         // console.log(results);
-        res.render("searchresults",{results: results,loggedUser: req.user.username,q: query});
+        res.render("searchresultsnew",{results: results,loggedUser: req.user.username,q: query});
     })
 })
 //Follow Req related routes........................
@@ -388,8 +388,8 @@ app.get("/accept/:userid",function(req,res)
             res.redirect("back");
     })
 })
-app.get("/requests",function(req,res)
-{
+app.get("/requests",function(req,res)                 //to get received requests... 
+{ 
     User.findOne({username: req.user.username},function(err,user)
     {
         // console.log(user.rec_req);
@@ -421,7 +421,7 @@ app.get("/requests",function(req,res)
     })
     
 })
-app.get("/sentrequests",isLoggedin,function(req,res)
+app.get("/sentrequests",isLoggedin,function(req,res)    //to get sent requests
 {
     User.findOne({username: req.user.username},function(err,user)
     {
@@ -447,7 +447,7 @@ app.get("/sentrequests",isLoggedin,function(req,res)
       
     })
 })
-app.get("/manage",isLoggedin,function(req,res)
+app.get("/manage",isLoggedin,function(req,res)    //to get followers
 {
     User.findOne({username: req.user.username},function(err,user)
     {
@@ -472,7 +472,7 @@ app.get("/manage",isLoggedin,function(req,res)
     })
     // res.render("manage.ejs",{loggedUser: req.user.username});
 })
-app.get("/following",isLoggedin,function(req,res)
+app.get("/following",isLoggedin,function(req,res)    //to get following
 {
     User.findOne({username: req.user.username},function(err,user)
     {
