@@ -34,7 +34,7 @@
              <a href="/suggestions"> <img src="https://cdn0.iconfinder.com/data/icons/instagram-ui-1/24/Instagram-UI_discover_people-512.png" style="height: 35px; width: 35px; margin-top: 10px; margin-left: 30px;"></a>
             </span>
             <span class="s3">
-              <img src="https://cdn0.iconfinder.com/data/icons/instagram-ui-1/24/Instagram-UI_like-512.png" style="height: 35px; width: 35px; margin-top: 10px; margin-left: 30px;">
+              <a href="/requests"> <img src="https://cdn0.iconfinder.com/data/icons/instagram-ui-1/24/Instagram-UI_like-512.png" style="height: 35px; width: 35px; margin-top: 10px; margin-left: 30px;"></a> 
             </span>
             <span class="s4">
               <a href="/viewprofile/<%= user.username %>"><img src="<%= user.profileimg %>" style="height: 35px; width: 35px; margin-top: 10px; margin-left: 30px; border-radius: 20px;"></a>  
@@ -68,8 +68,22 @@
               <div class="col-5">
                <% if(search.username===user.username ){ %>
           <a href="/deleteacc"> <button class="btn btn-sm btn-secondary" style="margin-top: 20px; width: fit-content;">Delete Account</button></a> 
-                <!-- <h3 class="display-4" style="font-size: 20px; margin-top: 20px; "></h3> -->
+          
                 <% } %>
+                
+                  <% if(search.username!=user.username && showblogs===true){ %>
+                    <a href="/unfollow/<%= su.username %>"> <button class="btn btn-sm btn-light" style="border: 1px solid lightgray; width: fit-content; margin-top: 20px;" >Unfollow</button></a> 
+                 <% } %>
+                 <% if(search.username!=user.username && showblogs!=true && as===false){ %>
+    
+                  <a href="/send/<%= su.username %>"> <button class="btn btn-sm btn-primary" style="margin-top: 20px; width: fit-content;">Follow</button></a> 
+                  <% } %>
+                  <% if(search.username!=user.username && showblogs!=true && as===true) { %>
+                    <a href="/cancel/<%= su.username %>"> <button class="btn btn-sm btn-light" style="border: 1px solid lightgray; width: fit-content; margin-top: 20px;" >Requested</button></a> 
+                    <% } %>
+               
+                  
+                       
               </div>
               <div class="col-1">
 

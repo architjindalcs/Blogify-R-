@@ -3,103 +3,146 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet"  href="/css/requestsrec.css">
+    <link rel="stylesheet"  href="/css/searchresultsnew.css">
     <link href="https://fonts.googleapis.com/css?family=Gotu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Leckerli+One&family=Pacifico&family=Satisfy&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans|Quicksand:500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
   </head>
-  <title>Requests | <%=loggedUser%></title>
+  <title>Search</title>
   <body>
-   <div class="topnav">
-     <div class="row">
-       <div class="col-lg-4">
-        <span class="logo"><a href="/profile">💬 Blogify</a></span>
-       </div>
-       <div class="col-lg-3 search">
-        <form method="GET" action="/search">
-          <input type="text"  class="form-control" placeholder="Search something...🔍" name="query" required>
-        </form>
-    
-       </div>
-       <div class="col-lg-1">
+    <div class="topnav">
+        <div class="row">
+          <div class="col-lg-3">
+           <span class="logo" style="margin-left: 130px;">  Blogify</span>
+          </div>
+          <div class="col-lg-3 search">
+           <form method="GET" action="/search">
+             <input type="text"  class="form-control" placeholder="Search someone..." name="query" required>
+           </form>
        
+          </div>
+          <div class="col-1">
+
+          </div>
+          <div class="col-lg-5" >
+            <span class="s1" style="margin-left: 95px;">
+            <a href="/profile"><img src="https://static.thenounproject.com/png/682477-200.png" style="height: 30px; width: 30px; margin-top: 10px; margin-left: 30px;"></a>  
+            </span>
+            <span class="s2">
+             <a href="/suggestions"> <img src="https://cdn0.iconfinder.com/data/icons/instagram-ui-1/24/Instagram-UI_discover_people-512.png" style="height: 35px; width: 35px; margin-top: 10px; margin-left: 30px;"></a>
+            </span>
+            <span class="s3">
+            <a href="/requests"> <img src="https://cdn0.iconfinder.com/data/icons/instagram-ui-1/24/Instagram-UI_like-512.png" style="height: 35px; width: 35px; margin-top: 10px; margin-left: 30px;"></a> 
+            </span>
+            <span class="s4">
+              <a href="/viewprofile/<%= loggedUser %>"><img src="<%= uimg %>" style="height: 30px; width: 30px; margin-top: 10px; margin-left: 30px; border-radius: 20px;"></a>  
+              </span>
+            <span class="s5">
+             <a href="/logout"> <img src="https://static.thenounproject.com/png/205237-200.png" style="height: 35px; width: 35px; margin-top: 10px; margin-left: 30px;"> </a>
+            </span>
+         </div>
+
+    
+      
+        </div>
       </div>
-       <div class="col-lg-1">
-        <a href="/requests">Received Request✔</a>
-       </div>
-       <div class="col-lg-1">
-        <a href="/sentrequests">Sent Request✔</a>
-       </div>
-       <div class="col-lg-1">
-       <a href="/manage">Manage Account</a>
-      </div>
-      <div class="col-lg-1">
-        <a href="/logout"><%= loggedUser %><br>📲</a>
-      </div>
-   
-     </div>
-    </div>
-    <br>
-    <br>
     <% if(results.length===0) { %>
       <img src="https://cdn.dribbble.com/users/283708/screenshots/7084440/media/6cd8b29540bcfb6a7693c27f58db7b56.png" alt="" class="nothing">
     <% } %>
     <div class="container">
-      <% if(results.length!=0) { %>
-       <h1 class="display-4">Received Requests 📁</h1>
-       <br>
-      <% } %>
-        <% for(var i=0;i!=results.length;i++) { %>
+        <p style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color: darkgrey; margin-top: 25px"> Received Requests </p>
+        <div class="row">
 
-            <div class="row ress">
-                <div class="col-lg-1 left">
 
-                </div>
-                <div class="col-lg-4 aac">
-                    <img src="<%= results[i].profileimg %>" alt="">
-                </div>
-                <div class="col-lg-7 forb aac">  
-                   <div class="row">
-                     <div class="col-12 name">
-                      <h1 class="display-4">💬<%=results[i].name%> (@<%= results[i].username %>)</h1>
-                     </div>
-                     <div class="col-12 line">
-
-                     </div>
-                     <div class="col-lg-6 followers">
-                      <h1 class="display-4">✔Followers: <%=results[i].followers.length%> </h1>
-                     </div>
-                     <div class="col-lg-6 following">
-                      <h1 class="display-4">✔Following: <%=results[i].following.length%> </h1>
+            <% for(var i=0;i!=results.length;i++) { %>
+                <% var rec_req=results[i].rec_req,alreadySent=false,following=false %>
+                <% for(var j=0;j!=results[i].followers.length;j++) { %>
+                   <% if(results[i]["followers"][j]===loggedUser){ %>
+                    <%    following=true;break; %>
+                <%    } %>
+                <% } %> 
+                <% for(var j=0;j!=results[i].rec_req.length;j++) { %>
+                    <% if(results[i]["rec_req"][j]===loggedUser){ %>
+                     <%    alreadySent=true;break; %>
+                 <% } %>
+                 <% } %> 
+                
+                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12" style="border: 1px solid lightgrey; padding-left: 10px; padding-right: 10px;">
+                    <div class="imageclass">
+                 <a href="/viewprofile/<%= results[i].username %>"><img src="<%= results[i].profileimg %>" alt="" class="img-fluid" style="border-radius: 130px; margin-top: 10px; height: 120px; width: 120px; margin-left: 15%;"></a>  
                     </div>
-                    <div class="col-12 line1 aac">
+                    <div class="usernameclass" style="text-align: center;">
+                        <%= results[i].username %>
+                    </div>
+                    <div class="nameclass" style="text-align: center; color: gray;">
+                        <%= results[i].name %>
+                    </div>
                     
-                    </div>
-                    <div class="col-12 option aac">
-                        <div class="row">
-                            <div class="col-lg-2">
-
-                            </div>
-                            <div class="col-lg-4">
-                                <a href="/delete/<%= results[i].username %>"> <button class="btn btn1 btn-info">Delete Request❌</button></a>
-                            </div>
-                            <div class="col-lg-6 tbt">
-                                <a href="/accept/<%= results[i].username %>"> <button class="btn btn2 btn-success">Accept Request✔</button></a>
-                            </div>
-                        </div>
+                    <div class="buttonclass" style="margin-top: 10px;">
                       
+                      <a href="/accept/<%= results[i].username %>"> <button class="btn btn-sm btn-primary">Accept</button></a>
                     </div>
-                   </div>
-                   
+                    <div class="buttonclass">
+      
+                          <a href="/delete/<%= results[i].username %>"> <button class="btn btn-sm btn-light" style="border: 1px solid lightgray;" >Delete</button></a>
+                        
+      
+                  </div>
                 </div>
-                <div class="col-12 space">
 
-                </div>
-            </div>
+                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1" ></div>
+                <!-- <div class="row ress">
+                    <div class="col-lg-1 left">
+    
+                    </div>
+                    <div class="col-lg-4 aac">
+                        <img src="<%= results[i].profileimg %>" alt="">
+                    </div>
+                    <div class="col-lg-7 forb aac">  
+                       <div class="row">
+                         <div class="col-12 name">
+                          <h1 class="display-4">💬<%=results[i].name%> (@<%= results[i].username %>)</h1>
+                         </div>
+                         <div class="col-12 line">
+    
+                         </div>
+                         <div class="col-lg-6 followers">
+                          <h1 class="display-4">✔Followers: <%=results[i].followers.length%> </h1>
+                         </div>
+                         <div class="col-lg-6 following">
+                          <h1 class="display-4">✔Following: <%=results[i].following.length%> </h1>
+                        </div>
+                        <div class="col-12 line1 aac">
+                        
+                        </div>
+                        <div class="col-12 option aac">
+                          <% if(alreadySent===true) { %>
+                            <a href="/cancel/<%= results[i].username %>"> <button class="btn btn-info">Cancel Request❌</button></a>
+                            <% } %>
+                            <% if(following===true) { %>
+                              <a href="/unfollow/<%= results[i].username %>" > <button class="btn btn-info">Unfollow❌</button></a>
+                              <% } %>
+                              <% if(alreadySent===false && following===false) { %>
+                                <a href="/send/<%= results[i].username %> " > <button class="btn btn-primary">Send Request✔</button></a>
+                                <% } %>
+                        </div>
+                       </div>
+                       
+                    </div>
+                    <div class="col-12 space">
+    
+                    </div>
+                </div> -->
+    
+    
+            <% } %>
 
 
-        <% } %>
+
+        </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

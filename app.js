@@ -229,7 +229,11 @@ app.get("/search",isLoggedin,function(req,res)
                     results.push(users[i]);
                 }
             }
-            res.render("searchresultsnew",{results: results,loggedUser: req.user.username,q: query});
+            Image.findOne({username: req.user.username},function(err,image)
+            {
+                res.render("searchresultsnew",{results: results,loggedUser: req.user.username,q: query,uimg: image.profileimg});
+            })
+            
 
         })
     }
@@ -278,7 +282,11 @@ app.get("/search",isLoggedin,function(req,res)
 
         }
         // console.log(results);
-        res.render("searchresultsnew",{results: results,loggedUser: req.user.username,q: query});
+        Image.findOne({username: req.user.username},function(err,image)
+        {
+            res.render("searchresultsnew",{results: results,loggedUser: req.user.username,q: query, uimg: image.profileimg});
+        })
+        
     })
 })
 //Follow Req related routes........................
@@ -417,7 +425,12 @@ app.get("/requests",function(req,res)                 //to get received requests
                     }
                 }
             }
-            res.render("requestsrec",{results: results,loggedUser: req.user.username});
+            Image.findOne({username: req.user.username},function(err,image)
+            {
+                console.log(results)
+                res.render("requestsrec",{results: results,loggedUser: req.user.username, uimg: image.profileimg});
+            })
+            
             // console.log("Results: ",results);
         })
         // res.send("Welcome...");
@@ -642,9 +655,19 @@ app.get("/viewprofile/:userid",isLoggedin,function(req,res)
     }
     User.findOne({username: req.user.username},function(err,user)
     {
-        console.log(user)
+ 
         var following=user.following;
         var isfollowing=false;
+        var sentReq=user.sent_req;
+        var as=false;
+        for(var i=0;i<sentReq.length;i++)
+        {
+            if(sentReq[i]===req.params.userid)
+            {
+                as=true;
+                break;
+            }
+        }
         for (var i=0;i<following.length;i++)
         {
             if(following[i]==req.params.userid)
@@ -660,9 +683,9 @@ app.get("/viewprofile/:userid",isLoggedin,function(req,res)
             {
                 Image.findOne({username: req.user.username},function(err,userimg)
                 {
-                    Image.findOne({username: req.user.username},function(err,searchuser)
+                    Image.findOne({username: req.params.userid},function(err,searchuser)
                     {
-                        res.render("userprofile.ejs",{blogs: blogs,user: userimg,search:searchuser,showblogs: showblogs,su: su});
+                        res.render("userprofile.ejs",{blogs: blogs,user: userimg,search:searchuser,showblogs: showblogs,su: su,as: as});
                     })
                 })
             })
@@ -676,18 +699,12 @@ app.get("/deleteacc",isLoggedin,function(req,res)
     User.findOneAndDelete({username: req.user.username},function(err,user){});
     Blog.find({createdby: req.user.username},function(err,blogs)
     {
-        for(var i=0;i<blogs.length;i++)
-        {
-            Blog.findByIdAndDelete({_id: blogs[i]._id})   //problem
-        }
+        console.log(blogs);
     })
     Image.findOneAndDelete({username: req.user.username},function(err,images){});
     Comment.find({commentedBy: req.user.username},function(err,comments)
     {
-        for(var i=0;i<comments.length;i++)
-        {
-            Comment.findByIdAndDelete({_id: comments[i]._id},{});   //problem
-        }
+        console.log(comments);
     })
     res.redirect("/logout")
 })
