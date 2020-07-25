@@ -685,6 +685,7 @@ app.get("/viewprofile/:userid",isLoggedin,function(req,res)
                 {
                     Image.findOne({username: req.params.userid},function(err,searchuser)
                     {
+                    
                         res.render("userprofile.ejs",{blogs: blogs,user: userimg,search:searchuser,showblogs: showblogs,su: su,as: as});
                     })
                 })
@@ -707,6 +708,19 @@ app.get("/deleteacc",isLoggedin,function(req,res)
         console.log(comments);
     })
     res.redirect("/logout")
+})
+app.get("/expand/:blogid",function(req,res)
+{
+    Image.findOne({username: req.user.username},function(err,uimg)
+    {
+        Blog.findOne({_id: req.params.blogid},function(err,blog)
+        {
+            Image.findOne({username: blog.createdby},function(err,creatorimg)
+            {
+                res.render("blogdetails.ejs",{uimg: uimg, cimg: creatorimg, blog: blog })
+            })
+        })
+    })
 })
 app.listen(process.env.PORT || 3000,function(){
     console.log("Server has started!!")
