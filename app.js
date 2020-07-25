@@ -635,7 +635,61 @@ app.post("/addcomment/:blogid",function(req,res)
 })
 app.get("/viewprofile/:userid",isLoggedin,function(req,res)
 {
-        
+    var showblogs=false;
+    if(req.params.userid===req.user.username)
+    {
+        showblogs=true;      
+    }
+    User.findOne({username: req.user.username},function(err,user)
+    {
+        console.log(user)
+        var following=user.following;
+        var isfollowing=false;
+        for (var i=0;i<following.length;i++)
+        {
+            if(following[i]==req.params.userid)
+            {
+                isfollowing=true;
+                break;
+            }
+        }
+        if(isfollowing===true)
+        showblogs=true;
+        User.findOne({username: req.params.userid},function(err,su){
+            Blog.find({createdby: req.params.userid},function(err,blogs)
+            {
+                Image.findOne({username: req.user.username},function(err,userimg)
+                {
+                    Image.findOne({username: req.user.username},function(err,searchuser)
+                    {
+                        res.render("userprofile.ejs",{blogs: blogs,user: userimg,search:searchuser,showblogs: showblogs,su: su});
+                    })
+                })
+            })
+        })
+ 
+
+    })
+})
+app.get("/deleteacc",isLoggedin,function(req,res)
+{
+    User.findOneAndDelete({username: req.user.username},function(err,user){});
+    Blog.find({createdby: req.user.username},function(err,blogs)
+    {
+        for(var i=0;i<blogs.length;i++)
+        {
+            Blog.findByIdAndDelete({_id: blogs[i]._id})   //problem
+        }
+    })
+    Image.findOneAndDelete({username: req.user.username},function(err,images){});
+    Comment.find({commentedBy: req.user.username},function(err,comments)
+    {
+        for(var i=0;i<comments.length;i++)
+        {
+            Comment.findByIdAndDelete({_id: comments[i]._id},{});   //problem
+        }
+    })
+    res.redirect("/logout")
 })
 app.listen(process.env.PORT || 3000,function(){
     console.log("Server has started!!")
