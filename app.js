@@ -22,9 +22,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 //Passport
-const connectionURLnew="mongodb+srv://archit:archit@cluster0-853ii.mongodb.net/blogSiteDBNew";
+const connectionURLnew="mongodb+srv://archit:archit@cluster0-853ii.mongodb.net/instalikeDB";
 const prevURL="mongodb://127.0.0.1:27017/blogifyyDB";
-mongoose.connect(prevURL,{useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect(connectionURLnew,{useNewUrlParser: true,useUnifiedTopology: true});
 const userSchema=new mongoose.Schema({
     name: String,
     username: String,
