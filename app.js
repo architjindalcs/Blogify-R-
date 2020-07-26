@@ -749,6 +749,7 @@ app.get("/suggestions",isLoggedin,function(req,res)
                 if(results[i].username===req.user.username)
                 continue;
                 var fw=false;
+                var rs=false;
                 for(var j=0;j<following.length;j++)
                 {
                     if(following[j]===results[i].username)
@@ -757,7 +758,16 @@ app.get("/suggestions",isLoggedin,function(req,res)
                         break;
                     }
                 }
-                if(fw===false)
+                var sentR=user.sent_req;
+                for(var j=0;j<sentR.length;j++)
+                {
+                    if(sentR[j]===results[i].username)
+                    {
+                        rs=true;
+                        break;
+                    }
+                }
+                if(fw===false && rs===false)
                 nr.push(results[i]);
             }
             Image.findOne({username: req.user.username},function(err,image)
