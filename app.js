@@ -621,6 +621,11 @@ app.get("/deleteblog/:blogid",function(req,res)
     Blog.findOneAndDelete({_id: req.params.blogid},function(err,blog){});
     res.redirect("back");
 })
+app.get("/deleteblogg/:blogid",function(req,res)
+{
+    Blog.findOneAndDelete({_id: req.params.blogid},function(err,blog){});
+    res.redirect("/viewprofile/"+req.user.username);
+})
 app.get("/deleteComment/:cid",function(req,res){
     console.log("I am here...");
     Comment.findOneAndDelete({_id: req.params.cid},function(err,comments){res.redirect("back");});
@@ -711,13 +716,17 @@ app.get("/deleteacc",isLoggedin,function(req,res)
 })
 app.get("/expand/:blogid",function(req,res)
 {
-    Image.findOne({username: req.user.username},function(err,uimg)
+    Blog.findOne({_id: req.params.blogid},function(err,blog)
     {
-        Blog.findOne({_id: req.params.blogid},function(err,blog)
+        Image.find({},function(err,images)
         {
-            Image.findOne({username: blog.createdby},function(err,creatorimg)
+            Comment.find({blogid:req.params.blogid},function(err,comments)
             {
-                res.render("blogdetails.ejs",{uimg: uimg, cimg: creatorimg, blog: blog })
+                Image.findOne({username: req.user.username},function(err,img)
+                {
+                    res.render("blogdetails",{uname: req.user.username,uimg: img,blog: blog, images: images,comments: comments});
+                })
+                
             })
         })
     })

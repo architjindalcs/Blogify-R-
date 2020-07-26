@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Leckerli+One&family=Pacifico&family=Satisfy&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans|Quicksand:500&display=swap" rel="stylesheet">
@@ -106,13 +107,11 @@
             </div>
             <div class="col-1">
              <% if(results[i].createdby===loggedUser) { %>
-              <p style="margin-top: 18px;">Delete</p>
+              <a href="/deleteblog/<%= results[i]._id %>"> <button class="btn btn-md btn-light" style="border: 1px solid lightgray; margin-top: 15px;" >Delete</button> </a>
               <% } %>
             </div>
             <div class="col-1">
-              <% if(results[i].createdby===loggedUser){ %>
-               <a href="/deleteblog/<%= results[i]._id %>"><img src="https://cdn2.iconfinder.com/data/icons/harmonicons-03/64/delete-512.png" alt="" style="height: 40px; width: 40x;"> </a>
-            <%  } %>
+              
             </div>
             </div>
     
@@ -151,7 +150,7 @@
         
           </div>
           <div class="row captions">
-            <p><%= results[i].caption %></p>  
+            <p style="font-family: 'Nunito', sans-serif;"><%= results[i].caption %></p>  
            
           </div>
           <div class="row captions"> 
@@ -166,7 +165,7 @@
       
          
           </div>
-
+            <% commentsBlog=commentsBlog.reverse() %>
        
           <div class="tohidew" >
             <div class="row" >  
@@ -185,15 +184,18 @@
          
                </div>
                <div class="col-9">
-                 <p class="usernamecomment cclass" style="margin-left: 0; " ><%= cuser %></p>
+                 <p class="usernamecomment cclass" style="margin-left: 0;  font-size: 20px;" ><%= cuser %></p>
                </div>
                <div class="col-2">
                 <% if(commentsBlog[j].commentedBy===loggedUser){ %>
-                   Delete <a href="/deleteComment/<%= commentsBlog[j]._id %>"><img src="https://cdn2.iconfinder.com/data/icons/harmonicons-03/64/delete-512.png" alt="" style="height: 30px; width: 30x;" class="cclass"> </a>
+                    <a href="/deleteComment/<%= commentsBlog[j]._id %>"><button class="btn btn-sm btn-light" style="border: 1px solid lightgray; margin-top: 5px;" >Delete</button> </a>
                 <% } %>
                </div>
-               <div class="col-12">
-                 <p class="comment cclass">💬 <%= commentsBlog[j].comment %></p>
+               <div class="col-1">
+
+               </div>
+               <div class="col-11">
+                 <p class="comment cclass" style="color: darkslategrey;"><%= commentsBlog[j].comment %></p>
                </div>
                <br>
                

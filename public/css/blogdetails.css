@@ -1,0 +1,109 @@
+.topnav
+{
+    height: 50px;
+    width: 100% ;
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+    /* position: fixed; */
+}
+.logo
+{
+    font-family: 'Leckerli One', cursive;
+    font-weight: 500;
+    font-size: 33px;
+    margin-left: 35px;
+}
+.search
+{
+    margin-top: 4px;
+}
+.topnav img
+{
+    height: 40px;
+    width: 40px;
+    margin-left: 4px;
+}
+.topnav p
+{
+    margin-left: 0;
+}
+.topnav a
+{
+    color: black;
+}
+.aac
+{
+    background-color: whitesmoke;
+    
+}
+.ress img
+{
+    height: 250px;
+    width: 250px;
+    margin-top: 0px;
+}
+.name h1
+{
+    font-size: 40px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.followers h1
+{
+    font-size: 25px;
+    text-align: right;
+}
+.following h1
+{
+    font-size: 25px;;
+    text-align: left;
+   
+}
+.following
+{
+    border-left: 1px solid grey;
+}
+.line
+{
+    height: 25px;
+  
+}
+.line1
+{
+    height: 40px;
+}
+.btn
+{
+    width: 100%;
+    margin-bottom: 6px;
+}
+.nothing
+{
+    height: 800px;
+    width: 1000px;
+    margin-left: 130px;
+}
+.left
+{
+    background-color: steelblue;
+    width: 50%;
+}
+.space
+{
+    height: 35px;
+}
+.container
+{
+    margin-top: 0;
+}
+input{
+    border: none;
+    border-top: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
+    padding: 2px;
+}
+::placeholder
+{
+    text-align: center;
+}
