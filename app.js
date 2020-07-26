@@ -175,7 +175,10 @@ app.get("/profile",isLoggedin,function(req,res)  //To be updated..profile homepa
                     }
                 }
             }
-            
+            if(results.length===0)
+            {
+                res.redirect("/suggestions");    //New Logic
+            }
             results.sort(function(a,b){
                 var time1=a.timeStamp;
                 var time2=b.timeStamp;
@@ -464,7 +467,7 @@ app.get("/sentrequests",isLoggedin,function(req,res)    //to get sent requests
       
     })
 })
-app.get("/manage",isLoggedin,function(req,res)    //to get followers
+app.get("/followers",isLoggedin,function(req,res)    //to get followers
 {
     User.findOne({username: req.user.username},function(err,user)
     {
@@ -484,7 +487,11 @@ app.get("/manage",isLoggedin,function(req,res)    //to get followers
                 }
             }
             // console.log("Results,",results);
-            res.render("manage",{results: results,loggedUser: req.user.username});
+            Image.findOne({username: req.user.username},function(err,image)
+            {
+                res.render("followers",{results: results,loggedUser: req.user.username,uimg: image.profileimg});
+            })
+            
         })
     })
     // res.render("manage.ejs",{loggedUser: req.user.username});
@@ -509,7 +516,11 @@ app.get("/following",isLoggedin,function(req,res)    //to get following
                 }
             }
             // console.log("Results,",results);
-            res.render("following",{results: results,loggedUser: req.user.username});
+            Image.findOne({username: req.user.username},function(err,image)
+            {
+                res.render("following",{results: results,loggedUser: req.user.username,uimg: image.profileimg});
+            })
+            
         })
     })
 })
@@ -714,7 +725,7 @@ app.get("/deleteacc",isLoggedin,function(req,res)
     })
     res.redirect("/logout")
 })
-app.get("/expand/:blogid",function(req,res)
+app.get("/expand/:blogid",isLoggedin,function(req,res)
 {
     Blog.findOne({_id: req.params.blogid},function(err,blog)
     {
@@ -729,6 +740,38 @@ app.get("/expand/:blogid",function(req,res)
                 
             })
         })
+    })
+})
+app.get("/suggestions",isLoggedin,function(req,res)
+{
+    User.find({},function(err,results)
+    {
+        User.findOne({username: req.user.username},function(err,user)
+        {
+            var following=user.following;
+            var nr=[]
+            for(var i=0;i!=results.length;i++)
+            {
+                if(results[i].username===req.user.username)
+                continue;
+                var fw=false;
+                for(var j=0;j<following.length;j++)
+                {
+                    if(following[j]===results[i].username)
+                    {
+                        fw=true;
+                        break;
+                    }
+                }
+                if(fw===false)
+                nr.push(results[i]);
+            }
+            Image.findOne({username: req.user.username},function(err,image)
+            {
+                res.render("suggestions",{results: nr,loggedUser: req.user.username,uimg: image.profileimg});
+            })
+        })
+
     })
 })
 app.listen(process.env.PORT || 3000,function(){

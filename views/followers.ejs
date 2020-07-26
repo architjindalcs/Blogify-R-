@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
   </head>
-  <title>Follow Requests</title>
+  <title>Followers</title>
   <body>
     <div class="topnav">
         <div class="row">
@@ -52,23 +52,11 @@
       <img src="https://cdn.dribbble.com/users/283708/screenshots/7084440/media/6cd8b29540bcfb6a7693c27f58db7b56.png" alt="" class="nothing">
     <% } %>
     <div class="container">
-        <p style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color: darkgrey; margin-top: 25px"> Received Requests </p>
+        <p style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color: darkgrey; margin-top: 25px"> Followers </p>
         <div class="row">
 
 
-            <% for(var i=0;i!=results.length;i++) { %>
-                <% var rec_req=results[i].rec_req,alreadySent=false,following=false %>
-                <% for(var j=0;j!=results[i].followers.length;j++) { %>
-                   <% if(results[i]["followers"][j]===loggedUser){ %>
-                    <%    following=true;break; %>
-                <%    } %>
-                <% } %> 
-                <% for(var j=0;j!=results[i].rec_req.length;j++) { %>
-                    <% if(results[i]["rec_req"][j]===loggedUser){ %>
-                     <%    alreadySent=true;break; %>
-                 <% } %>
-                 <% } %> 
-                
+                <% for(var i=0;i!=results.length;i++){ %>
                 <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12" style="border: 1px solid lightgrey; padding-left: 10px; padding-right: 10px;">
                     <div class="imageclass">
                  <a href="/viewprofile/<%= results[i].username %>"><img src="<%= results[i].profileimg %>" alt="" class="img-fluid" style="border-radius: 130px; margin-top: 10px; height: 120px; width: 120px; margin-left: 15%;"></a>  
@@ -80,62 +68,15 @@
                         <%= results[i].name %>
                     </div>
                     
-                    <div class="buttonclass" style="margin-top: 10px;">
-                      
-                      <a href="/accept/<%= results[i].username %>"> <button class="btn btn-sm btn-primary">Accept</button></a>
-                    </div>
+
                     <div class="buttonclass">
       
-                          <a href="/delete/<%= results[i].username %>"> <button class="btn btn-sm btn-light" style="border: 1px solid lightgray;" >Delete</button></a>
-                        
-      
+                          <a href="/remove/<%= results[i].username %>"> <button class="btn btn-sm btn-danger" style="border: 1px solid lightgray; margin-top: 8px;" >Remove</button></a>
                   </div>
                 </div>
 
                 <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1" ></div>
-                <!-- <div class="row ress">
-                    <div class="col-lg-1 left">
-    
-                    </div>
-                    <div class="col-lg-4 aac">
-                        <img src="<%= results[i].profileimg %>" alt="">
-                    </div>
-                    <div class="col-lg-7 forb aac">  
-                       <div class="row">
-                         <div class="col-12 name">
-                          <h1 class="display-4">💬<%=results[i].name%> (@<%= results[i].username %>)</h1>
-                         </div>
-                         <div class="col-12 line">
-    
-                         </div>
-                         <div class="col-lg-6 followers">
-                          <h1 class="display-4">✔Followers: <%=results[i].followers.length%> </h1>
-                         </div>
-                         <div class="col-lg-6 following">
-                          <h1 class="display-4">✔Following: <%=results[i].following.length%> </h1>
-                        </div>
-                        <div class="col-12 line1 aac">
-                        
-                        </div>
-                        <div class="col-12 option aac">
-                          <% if(alreadySent===true) { %>
-                            <a href="/cancel/<%= results[i].username %>"> <button class="btn btn-info">Cancel Request❌</button></a>
-                            <% } %>
-                            <% if(following===true) { %>
-                              <a href="/unfollow/<%= results[i].username %>" > <button class="btn btn-info">Unfollow❌</button></a>
-                              <% } %>
-                              <% if(alreadySent===false && following===false) { %>
-                                <a href="/send/<%= results[i].username %> " > <button class="btn btn-primary">Send Request✔</button></a>
-                                <% } %>
-                        </div>
-                       </div>
-                       
-                    </div>
-                    <div class="col-12 space">
-    
-                    </div>
-                </div> -->
-    
+
     
             <% } %>
 
