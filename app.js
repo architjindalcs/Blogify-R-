@@ -175,10 +175,7 @@ app.get("/profile",isLoggedin,function(req,res)  //To be updated..profile homepa
                     }
                 }
             }
-            if(results.length===0)
-            {
-                res.redirect("/suggestions");    //New Logic
-            }
+
             results.sort(function(a,b){
                 var time1=a.timeStamp;
                 var time2=b.timeStamp;
@@ -430,7 +427,7 @@ app.get("/requests",function(req,res)                 //to get received requests
             }
             Image.findOne({username: req.user.username},function(err,image)
             {
-                console.log(results)
+                // console.log(results)
                 res.render("requestsrec",{results: results,loggedUser: req.user.username, uimg: image.profileimg});
             })
             
@@ -638,10 +635,7 @@ app.get("/deleteblogg/:blogid",function(req,res)
     res.redirect("/viewprofile/"+req.user.username);
 })
 app.get("/deleteComment/:cid",function(req,res){
-    console.log("I am here...");
     Comment.findOneAndDelete({_id: req.params.cid},function(err,comments){res.redirect("back");});
-    
-    
 })
 // const commentSchema=mongoose.Schema({
 //     blogid: String,
@@ -716,12 +710,12 @@ app.get("/deleteacc",isLoggedin,function(req,res)
     User.findOneAndDelete({username: req.user.username},function(err,user){});
     Blog.find({createdby: req.user.username},function(err,blogs)
     {
-        console.log(blogs);
+        // console.log(blogs);
     })
     Image.findOneAndDelete({username: req.user.username},function(err,images){});
     Comment.find({commentedBy: req.user.username},function(err,comments)
     {
-        console.log(comments);
+        // console.log(comments);
     })
     res.redirect("/logout")
 })

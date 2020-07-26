@@ -22,7 +22,7 @@
     <div class="topnav">
         <div class="row">
           <div class="col-lg-3">
-           <span class="logo" style="margin-left: 130px;">  Blogify</span>
+          <a href="/profile"><img src="https://fontmeme.com/permalink/200726/f50048c1992eb81b297e1dd908c54d94.png" style="height: 70%; width: 40%; margin-left: 20%; margin-top: 2%;" > </a> 
           </div>
           <div class="col-lg-3 search">
            <form method="GET" action="/search">
@@ -65,7 +65,7 @@
           <input type="text"  class="form-control cols1" id="exampleInputEmail1" placeholder="Image Link" name="image">
           <textarea rows = "4" cols = "71" name = "caption" placeholder=" What's on your mind?" required maxlength="5000"></textarea>
     
-         <div class="butto" ><button class="btn  btn-primary logbutt" style="width: 100%;">Add to Blogify📁</button></div> 
+         <div class="butto" ><button class="btn  btn-primary logbutt" style="width: 100%;">Add to Instalike📁</button></div> 
        </form>
        </div>
        <div class="col-lg-3">
@@ -74,7 +74,30 @@
      </div>
 
     <div class="row">
+     <% if(results.length===0){ %>
+      <div class="col-2">
 
+      </div>
+      <div class="col-8">
+        <h1 class="display-4" style="font-size: 50px; text-align: center; color: darkslategray; margin-top: 40px;">Search and follow <br> to get content.</h1>
+      </div>
+      <div class="col-2">
+
+      </div>
+      <div class="col-5">
+
+      </div>
+      <div class="col-2" style="margin-top: 20px;">
+      <a href="/suggestions"><button class="btn btn-lg btn-light" style="border: 1px solid gray;">Suggestions</button></a>  
+      </div>
+      <div class="col-5">
+
+      </div>
+      <div class="col-2">
+
+      </div>
+ 
+    <%  } %>
       <% for(var i=0;i!=results.length;i++){ %>
         <% var commentsBlog=[] %>
         <% var bid= results[i]._id.toString() %>
