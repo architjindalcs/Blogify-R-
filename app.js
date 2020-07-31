@@ -22,7 +22,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 //Passport
-const connectionURLnew="mongodb+srv://archit:archit@cluster0-853ii.mongodb.net/instalikeDB";
+//mongodb+srv://archit:archit@cluster0.yd8qg.mongodb.net/?retryWrites=true&w=majority
+const connectionURLnew="mongodb+srv://archit:archit@cluster0.yd8qg.mongodb.net/instalikeDatabase?retryWrites=true&w=majority";
 const prevURL="mongodb://127.0.0.1:27017/blogifyyDB";
 mongoose.connect(connectionURLnew,{useNewUrlParser: true,useUnifiedTopology: true});
 const userSchema=new mongoose.Schema({
@@ -98,6 +99,12 @@ const commentSchema=mongoose.Schema({
     commentedBy: String
 })
 const Comment=mongoose.model("Comment",commentSchema);
+const viewSchema=mongoose.Schema(
+    {
+        visits: Number
+    }
+)
+const View=mongoose.model("View",viewSchema)
 function isLoggedin(req,res,next)
 {
     if(req.isAuthenticated())
@@ -108,6 +115,7 @@ function isLoggedin(req,res,next)
 }
 app.get("/",function(req,res)
 {
+    
     res.render("homepage");
 });
 app.get("/signup",function(req,res)
